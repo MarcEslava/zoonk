@@ -27,7 +27,6 @@ export async function updateMemberTagsAction(
   const t = await getExtracted();
   const submissionId = previousState.submissionId + 1;
   const memberId = parseFormField(formData, "memberId");
-  const organizationSlug = parseFormField(formData, "organizationSlug");
 
   if (!isUuid(memberId)) {
     return { error: t("Could not save the segments."), status: "error", submissionId };
@@ -39,9 +38,8 @@ export async function updateMemberTagsAction(
     return { error: t("Could not save the segments."), status: "error", submissionId };
   }
 
-  if (organizationSlug) {
-    revalidatePath(`/[lang]/org/${organizationSlug}`, "page");
-  }
+  /** Every locale renders the same team, so the whole route is revalidated. */
+  revalidatePath("/[lang]/org/[organizationSlug]", "page");
 
   return { error: null, status: "success", submissionId };
 }

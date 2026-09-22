@@ -15,12 +15,10 @@ import { type UpdateMemberTagsState, updateMemberTagsAction } from "./_actions/u
 export function MemberTagsForm({
   memberId,
   memberTagIds,
-  organizationSlug,
   tags,
 }: {
   memberId: string;
   memberTagIds: string[];
-  organizationSlug: string;
   tags: MemberTag[];
 }) {
   const t = useExtracted();
@@ -34,7 +32,6 @@ export function MemberTagsForm({
   return (
     <form action={formAction} className="flex flex-col gap-3">
       <input name="memberId" type="hidden" value={memberId} />
-      <input name="organizationSlug" type="hidden" value={organizationSlug} />
 
       <div className="flex flex-wrap gap-x-4 gap-y-2">
         {tags.map((tag) => (

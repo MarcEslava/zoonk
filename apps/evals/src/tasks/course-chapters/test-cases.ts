@@ -155,6 +155,17 @@ export const TEST_CASES = [
   {
     expectations: `
       - MUST be in Latin American Spanish
+      - La enfermedad de La Peyronie es una condición clínica concreta, no un campo amplio. Evalúa la cobertura según lo que necesita un clínico: anatomía y fisiopatología de la túnica albugínea, fase aguda frente a crónica, epidemiología y factores de riesgo, diagnóstico y medición de la curvatura, instrumentos validados, tratamiento conservador e intralesional, opciones quirúrgicas e impacto psicosexual
+      - NO exijas un capítulo independiente de historia ni un capítulo final de navegación del campo. Esos pilares corresponden a profesiones enteras, no a una sola patología
+
+      ${SHARED_EXPECTATIONS}
+    `,
+    id: "es-peyronie",
+    userInput: { courseTitle: "Enfermedad de La Peyronie", language: "es" },
+  },
+  {
+    expectations: `
+      - MUST be in Latin American Spanish
       - Must cover both theory (harmony, rhythm, notation, music history) AND practice (instrument technique, ensemble, performance, modern production/DAW tools), not just one side
       - Must not compress major traditions or eras into broad survey chapters. Western classical eras, Latin American traditions, blues, jazz, rock, pop, hip hop, electronic music, and other major popular traditions should be split into meaningful eras, families, or practice areas instead of bundled into one catch-all list
 

@@ -2,6 +2,7 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import { logError, logInfo } from "@zoonk/utils/logger";
 import { cache } from "react";
+import { getModelFileName } from "./model-file-name";
 import { findTestCaseForOutput, loadModelOutputs } from "./output-loader";
 import { generateScore } from "./score";
 import {
@@ -23,8 +24,7 @@ async function ensureResultsDir(taskId: string) {
 }
 
 function getResultsFilePath(taskId: string, modelId: string): string {
-  const modelPath = modelId.replaceAll("/", "-");
-  return path.join(RESULTS_DIR, taskId, `${modelPath}.json`);
+  return path.join(RESULTS_DIR, taskId, getModelFileName(modelId));
 }
 
 async function loadExistingScoredResults(taskId: string, modelId: string): Promise<ScoredResult[]> {

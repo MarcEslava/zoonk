@@ -1,6 +1,7 @@
 import fs from "node:fs/promises";
 import path from "node:path";
 import { cache } from "react";
+import { getModelFileName } from "./model-file-name";
 import { getBaseTestCaseId, getTestCaseRunProgress } from "./test-case-runs";
 import {
   type ModelOutputs,
@@ -14,8 +15,7 @@ const EVAL_RESULTS_DIR = path.join(process.cwd(), "eval-results");
 const OUTPUTS_DIR = path.join(EVAL_RESULTS_DIR, "outputs");
 
 function getOutputsFilePath(taskId: string, modelId: string): string {
-  const modelPath = modelId.replaceAll("/", "-");
-  return path.join(OUTPUTS_DIR, taskId, `${modelPath}.json`);
+  return path.join(OUTPUTS_DIR, taskId, getModelFileName(modelId));
 }
 
 /**

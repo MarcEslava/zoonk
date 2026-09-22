@@ -31,6 +31,7 @@ model User {
   dailyProgress      DailyProgress[]
   subscriptions      Subscription[]
   questionThreads    LessonQuestionThread[]
+  createdAssignments Assignment[]
 
   @@unique([email])
   @@unique([username])
@@ -105,6 +106,8 @@ model Organization {
   stripeCustomerId String?      @map("stripe_customer_id")
   words            Word[]
   sentences        Sentence[]
+  memberTags       MemberTag[]
+  assignments      Assignment[]
 
   @@unique([slug])
   @@map("organizations")
@@ -118,6 +121,9 @@ model Member {
   user           User         @relation(fields: [userId], references: [id], onDelete: Cascade)
   role           String       @default("member")
   createdAt      DateTime     @default(now()) @map("created_at")
+  tags                 MemberTagLink[]
+  assignmentTargets    AssignmentTarget[]
+  assignmentRecipients AssignmentRecipient[]
 
   @@index([organizationId])
   @@index([userId])

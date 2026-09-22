@@ -28,6 +28,7 @@ model Course {
   prompts          CoursePrompt[]
   users            CourseUser[]
   editionRequests  CourseEditionRequest[]
+  assignments      Assignment[]
 
   @@unique([organizationId, slug], name: "orgSlug")
   @@unique([userId, slug], name: "userSlug")

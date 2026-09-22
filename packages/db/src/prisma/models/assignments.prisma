@@ -1,0 +1,89 @@
+/// Field teams are segmented by axes that differ between organizations, so the
+/// vocabulary is owned by each organization rather than by the product. Names
+/// use a prefix convention such as `zona:levante` or `funcio:msl`.
+model MemberTag {
+  id                String                @id @default(dbgenerated("uuidv7()")) @db.Uuid
+  organizationId    String                @map("organization_id") @db.Uuid
+  organization      Organization          @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  name              String
+  createdAt         DateTime              @default(now()) @map("created_at")
+  members           MemberTagLink[]
+  targets           AssignmentTarget[]
+  matchedRecipients AssignmentRecipient[]
+
+  @@unique([organizationId, name], name: "organizationTagName")
+  @@index([organizationId])
+  @@map("member_tags")
+}
+
+model MemberTagLink {
+  id        String    @id @default(dbgenerated("uuidv7()")) @db.Uuid
+  memberId  String    @map("member_id") @db.Uuid
+  member    Member    @relation(fields: [memberId], references: [id], onDelete: Cascade)
+  tagId     String    @map("tag_id") @db.Uuid
+  tag       MemberTag @relation(fields: [tagId], references: [id], onDelete: Cascade)
+  createdAt DateTime  @default(now()) @map("created_at")
+
+  @@unique([memberId, tagId], name: "memberTag")
+  @@index([tagId])
+  @@map("member_tag_links")
+}
+
+/// One course an organization requires from part of its team, with the daily
+/// effort and deadline the organization commits people to.
+model Assignment {
+  id              String                @id @default(dbgenerated("uuidv7()")) @db.Uuid
+  organizationId  String                @map("organization_id") @db.Uuid
+  organization    Organization          @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  courseId        String                @map("course_id") @db.Uuid
+  course          Course                @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  dueAt           DateTime?             @map("due_at")
+  minDailySeconds Int?                  @map("min_daily_seconds")
+  createdById     String                @map("created_by_id") @db.Uuid
+  createdBy       User                  @relation(fields: [createdById], references: [id], onDelete: Cascade)
+  createdAt       DateTime              @default(now()) @map("created_at")
+  targets         AssignmentTarget[]
+  recipients      AssignmentRecipient[]
+
+  @@index([organizationId])
+  @@index([courseId])
+  @@map("assignments")
+}
+
+/// What the organization asked for: a named person or everyone carrying a tag.
+/// Kept separately from the resolved recipients so an audit can show both the
+/// original intent and who it actually reached.
+model AssignmentTarget {
+  id           String     @id @default(dbgenerated("uuidv7()")) @db.Uuid
+  assignmentId String     @map("assignment_id") @db.Uuid
+  assignment   Assignment @relation(fields: [assignmentId], references: [id], onDelete: Cascade)
+  memberId     String?    @map("member_id") @db.Uuid
+  member       Member?    @relation(fields: [memberId], references: [id], onDelete: Cascade)
+  tagId        String?    @map("tag_id") @db.Uuid
+  tag          MemberTag? @relation(fields: [tagId], references: [id], onDelete: Cascade)
+
+  @@index([assignmentId])
+  @@index([memberId])
+  @@index([tagId])
+  @@map("assignment_targets")
+}
+
+/// The materialized obligation. Rows are never deleted when someone stops
+/// matching a tag: `removedAt` closes the period instead, because compliance
+/// questions are asked about a past date, not about today's team structure.
+model AssignmentRecipient {
+  id           String     @id @default(dbgenerated("uuidv7()")) @db.Uuid
+  assignmentId String     @map("assignment_id") @db.Uuid
+  assignment   Assignment @relation(fields: [assignmentId], references: [id], onDelete: Cascade)
+  memberId     String     @map("member_id") @db.Uuid
+  member       Member     @relation(fields: [memberId], references: [id], onDelete: Cascade)
+  matchedTagId String?    @map("matched_tag_id") @db.Uuid
+  matchedTag   MemberTag? @relation(fields: [matchedTagId], references: [id], onDelete: SetNull)
+  assignedAt   DateTime   @default(now()) @map("assigned_at")
+  removedAt    DateTime?  @map("removed_at")
+
+  @@unique([assignmentId, memberId], name: "assignmentMember")
+  @@index([memberId, removedAt])
+  @@index([assignmentId])
+  @@map("assignment_recipients")
+}

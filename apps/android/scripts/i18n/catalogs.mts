@@ -1,5 +1,5 @@
 import { glob, readFile } from "node:fs/promises";
-import { resolve } from "node:path";
+import { resolve, sep } from "node:path";
 import { fileURLToPath } from "node:url";
 import createAndroidXmlCodec from "@eloqnt/format-android-xml";
 import { DEFAULT_LOCALE, SUPPORTED_LOCALES } from "@zoonk/utils/locale";
@@ -16,7 +16,9 @@ export function catalogFile(locale: string) {
 }
 
 export async function untrackedCatalogs(root: string) {
-  const files = await Array.fromAsync(glob("app/src/**/res/values*/*.xml", { cwd: root }));
+  /** `glob` yields platform separators, while tracked catalog paths are always POSIX. */
+  const matches = await Array.fromAsync(glob("app/src/**/res/values*/*.xml", { cwd: root }));
+  const files = matches.map((file) => file.replaceAll(sep, "/"));
   const tracked = new Set(SUPPORTED_LOCALES.map((locale) => catalogFile(locale)));
   const untracked = files.filter((file) => !tracked.has(file));
 

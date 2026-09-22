@@ -1,6 +1,6 @@
 import { prisma } from "@zoonk/db";
 import { courseFixture, courseUserFixture } from "@zoonk/testing/fixtures/courses";
-import { organizationFixture } from "@zoonk/testing/fixtures/orgs";
+import { organizationFixture, organizationMemberFixture } from "@zoonk/testing/fixtures/orgs";
 import { userFixture } from "@zoonk/testing/fixtures/users";
 import { beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
 import { mockSession } from "../_test-utils/mock-session";
@@ -142,6 +142,21 @@ describe(listCurrentUserCourses, () => {
 
       expect(courses.some((item) => item.id === brandCourse.id)).toBe(true);
       expect(courses.some((item) => item.id === schoolCourse.id)).toBe(false);
+    });
+
+    it("includes an organization course when the learner belongs to that organization", async () => {
+      const testUser = await userFixture();
+      const schoolOrg = await organizationFixture({ kind: "school" });
+
+      await organizationMemberFixture({ organizationId: schoolOrg.id, userId: testUser.id });
+
+      const schoolCourse = await courseFixture({ isPublished: true, organizationId: schoolOrg.id });
+
+      await courseUserFixture({ courseId: schoolCourse.id, userId: testUser.id });
+
+      const courses = await listCoursesForUser(testUser.id);
+
+      expect(courses.some((item) => item.id === schoolCourse.id)).toBe(true);
     });
 
     it("includes personal courses with null organization", async () => {

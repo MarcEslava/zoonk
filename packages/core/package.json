@@ -33,6 +33,7 @@
     "./courses/list-current-user-continue-learning": "./src/courses/list-current-user-continue-learning-items.ts",
     "./courses/list-current-user": "./src/courses/list-current-user-courses.ts",
     "./courses/list": "./src/courses/list-courses.ts",
+    "./courses/organization-membership": "./src/courses/organization-membership.ts",
     "./courses/prompt-contract": "./src/courses/course-prompt-contract.ts",
     "./courses/prompt-generation": "./src/courses/course-prompt-generation.ts",
     "./courses/remove-current-user": "./src/courses/remove-current-user-course.ts",

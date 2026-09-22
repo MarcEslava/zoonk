@@ -46,3 +46,15 @@ export async function aiOrganizationFixture() {
     throw error;
   }
 }
+
+export async function organizationMemberFixture({
+  organizationId,
+  role = "member",
+  userId,
+}: {
+  organizationId: string;
+  role?: string;
+  userId: string;
+}) {
+  return prisma.member.create({ data: { organizationId, role, userId } });
+}

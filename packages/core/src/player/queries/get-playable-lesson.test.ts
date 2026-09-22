@@ -3,7 +3,11 @@ import { prisma } from "@zoonk/db";
 import { chapterFixture } from "@zoonk/testing/fixtures/chapters";
 import { courseFixture } from "@zoonk/testing/fixtures/courses";
 import { lessonFixture } from "@zoonk/testing/fixtures/lessons";
-import { aiOrganizationFixture, organizationFixture } from "@zoonk/testing/fixtures/orgs";
+import {
+  aiOrganizationFixture,
+  organizationFixture,
+  organizationMemberFixture,
+} from "@zoonk/testing/fixtures/orgs";
 import { userFixture } from "@zoonk/testing/fixtures/users";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { mockSession } from "../../_test-utils/mock-session";
@@ -228,6 +232,26 @@ describe(getLessonContent, () => {
       organizationId: organization.id,
     });
 
+    await expect(getLessonContent(lesson.id)).resolves.toStrictEqual({ status: "unavailable" });
+  });
+
+  it("exposes organization content to a member and hides it from everyone else", async () => {
+    const [memberUser, outsider] = await Promise.all([userFixture(), userFixture()]);
+    const organization = await organizationFixture({ kind: "school" });
+
+    await organizationMemberFixture({ organizationId: organization.id, userId: memberUser.id });
+
+    const course = await courseFixture({ isPublished: true, organizationId: organization.id });
+
+    const lesson = await createLessonForCourse({
+      courseId: course.id,
+      organizationId: organization.id,
+    });
+
+    authenticateUser(memberUser.id);
+    await expect(getLessonContent(lesson.id)).resolves.toMatchObject({ lesson: { id: lesson.id } });
+
+    authenticateUser(outsider.id);
     await expect(getLessonContent(lesson.id)).resolves.toStrictEqual({ status: "unavailable" });
   });
 

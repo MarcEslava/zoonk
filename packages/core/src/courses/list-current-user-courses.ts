@@ -4,6 +4,7 @@ import { clampQueryItems } from "@zoonk/db/utils";
 import { cacheTag } from "next/cache";
 import { COURSE_LIST_CACHE_TAG, getUserProgressCacheTag } from "../cache/tags";
 import { getSession } from "../users/get-session";
+import { getOrganizationMemberCourseWhere } from "./organization-membership";
 
 /**
  * Loads the CourseUser-backed library for one trusted session-derived learner,
@@ -27,7 +28,11 @@ async function findCurrentUserCourses({
     ...(offset !== undefined && { skip: Math.max(Math.trunc(offset), 0) }),
     where: {
       course: {
-        OR: [{ organization: { kind: "brand" } }, { organizationId: null }],
+        OR: [
+          { organization: { kind: "brand" } },
+          { organizationId: null },
+          getOrganizationMemberCourseWhere(userId),
+        ],
         ...(query && {
           AND: [
             {

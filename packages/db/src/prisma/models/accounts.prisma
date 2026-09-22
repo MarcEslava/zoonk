@@ -32,6 +32,7 @@ model User {
   subscriptions      Subscription[]
   questionThreads    LessonQuestionThread[]
   createdAssignments Assignment[]
+  assignmentRecipients AssignmentRecipient[]
 
   @@unique([email])
   @@unique([username])

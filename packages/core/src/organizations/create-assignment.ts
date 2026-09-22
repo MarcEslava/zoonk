@@ -4,7 +4,7 @@ import { getOrganizationAccess } from "./get-organization-access";
 
 type AssignmentTargets = { memberIds?: string[]; tagIds?: string[] };
 
-type RecipientDraft = { matchedTagId: string | null; memberId: string };
+type RecipientDraft = { matchedTagId: string | null; memberId: string; userId: string };
 
 /**
  * An organization can require its own curriculum or anything already public,
@@ -25,17 +25,27 @@ function getAssignableCourseWhere({
  * person, so a tag they happen to carry should not be recorded as the reason.
  */
 function mergeRecipients({
-  directMemberIds,
+  directMembers,
   taggedMembers,
 }: {
-  directMemberIds: string[];
-  taggedMembers: { memberId: string; tagId: string }[];
+  directMembers: { id: string; userId: string }[];
+  taggedMembers: { member: { userId: string }; memberId: string; tagId: string }[];
 }): RecipientDraft[] {
-  const direct = directMemberIds.map((memberId) => ({ matchedTagId: null, memberId }));
+  const directIds = new Set(directMembers.map((member) => member.id));
+
+  const direct = directMembers.map((member) => ({
+    matchedTagId: null,
+    memberId: member.id,
+    userId: member.userId,
+  }));
 
   const tagged = taggedMembers
-    .filter((link) => !directMemberIds.includes(link.memberId))
-    .map((link) => ({ matchedTagId: link.tagId, memberId: link.memberId }));
+    .filter((link) => !directIds.has(link.memberId))
+    .map((link) => ({
+      matchedTagId: link.tagId,
+      memberId: link.memberId,
+      userId: link.member.userId,
+    }));
 
   const firstByMember = new Map<string, RecipientDraft>();
 
@@ -88,7 +98,7 @@ export async function createAssignment({
   const [course, members, tags] = await Promise.all([
     prisma.course.findFirst({ where: getAssignableCourseWhere({ courseId, organizationId }) }),
     prisma.member.findMany({
-      select: { id: true },
+      select: { id: true, userId: true },
       where: { id: { in: memberIds }, organizationId },
     }),
     prisma.memberTag.findMany({
@@ -106,11 +116,11 @@ export async function createAssignment({
   }
 
   const taggedLinks = await prisma.memberTagLink.findMany({
-    select: { memberId: true, tagId: true },
+    select: { member: { select: { userId: true } }, memberId: true, tagId: true },
     where: { member: { organizationId }, tagId: { in: tagIds } },
   });
 
-  const recipients = mergeRecipients({ directMemberIds: memberIds, taggedMembers: taggedLinks });
+  const recipients = mergeRecipients({ directMembers: members, taggedMembers: taggedLinks });
 
   const assignment = await prisma.$transaction(async (transaction) => {
     const created = await transaction.assignment.create({

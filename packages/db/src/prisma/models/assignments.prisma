@@ -68,22 +68,29 @@ model AssignmentTarget {
   @@map("assignment_targets")
 }
 
-/// The materialized obligation. Rows are never deleted when someone stops
-/// matching a tag: `removedAt` closes the period instead, because compliance
-/// questions are asked about a past date, not about today's team structure.
+/// The materialized obligation, kept as periods rather than as one row per
+/// person: leaving a segment closes a period with `removedAt` and rejoining
+/// opens a new one, so a past date reports what was actually required then.
+///
+/// The obligation outlives the membership. Someone who leaves the organization
+/// keeps their history through `userId` while `memberId` clears, because an
+/// audit asks about the people who were there at the time. Deleting the user
+/// still removes everything, which is what an erasure request requires.
 model AssignmentRecipient {
   id           String     @id @default(dbgenerated("uuidv7()")) @db.Uuid
   assignmentId String     @map("assignment_id") @db.Uuid
   assignment   Assignment @relation(fields: [assignmentId], references: [id], onDelete: Cascade)
-  memberId     String     @map("member_id") @db.Uuid
-  member       Member     @relation(fields: [memberId], references: [id], onDelete: Cascade)
+  userId       String     @map("user_id") @db.Uuid
+  user         User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  memberId     String?    @map("member_id") @db.Uuid
+  member       Member?    @relation(fields: [memberId], references: [id], onDelete: SetNull)
   matchedTagId String?    @map("matched_tag_id") @db.Uuid
   matchedTag   MemberTag? @relation(fields: [matchedTagId], references: [id], onDelete: SetNull)
   assignedAt   DateTime   @default(now()) @map("assigned_at")
   removedAt    DateTime?  @map("removed_at")
 
-  @@unique([assignmentId, memberId], name: "assignmentMember")
-  @@index([memberId, removedAt])
-  @@index([assignmentId])
+  @@index([assignmentId, removedAt])
+  @@index([userId, removedAt])
+  @@index([memberId])
   @@map("assignment_recipients")
 }

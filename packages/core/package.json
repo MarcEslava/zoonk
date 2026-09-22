@@ -66,6 +66,7 @@
     "./navigation/external-redirect": "./src/navigation/external-redirect.ts",
     "./organizations/access": "./src/organizations/get-organization-access.ts",
     "./organizations/create-assignment": "./src/organizations/create-assignment.ts",
+    "./organizations/reconcile-assignment": "./src/organizations/reconcile-assignment.ts",
     "./player/commands/get-next-lesson-preload-target": "./src/player/commands/get-next-lesson-preload-target.ts",
     "./player/commands/start-lesson": "./src/player/commands/start-lesson.ts",
     "./player/commands/create-lesson-completion": "./src/player/commands/create-lesson-completion.ts",

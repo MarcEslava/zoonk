@@ -1062,6 +1062,62 @@ msgctxt "AaFZIp"
 msgid "What's your goal?"
 msgstr "What's your goal?"
 
+#: src/app/[lang]/(org)/org/[organizationSlug]/_actions/update-member-tags.ts
+msgctxt "iqlXAd"
+msgid "Could not save the segments."
+msgstr "Could not save the segments."
+
+#: src/app/[lang]/(org)/org/[organizationSlug]/member-tags-form.tsx
+msgctxt "W4weiY"
+msgid "Segments saved."
+msgstr "Segments saved."
+
+#: src/app/[lang]/(org)/org/[organizationSlug]/member-tags-form.tsx
+msgctxt "Tt9chI"
+msgid "Save segments"
+msgstr "Save segments"
+
+#: src/app/[lang]/(org)/org/[organizationSlug]/page.tsx
+#: src/app/[lang]/(org)/org/page.tsx
+msgctxt "JD2pwH"
+msgid "Organizations"
+msgstr "Organizations"
+
+#: src/app/[lang]/(org)/org/[organizationSlug]/page.tsx
+msgctxt "RblFem"
+msgid "Create segments such as a territory or a role to assign training."
+msgstr "Create segments such as a territory or a role to assign training."
+
+#: src/app/[lang]/(org)/org/[organizationSlug]/page.tsx
+msgctxt "uncWxg"
+msgid "No segments yet"
+msgstr "No segments yet"
+
+#: src/app/[lang]/(org)/org/[organizationSlug]/page.tsx
+msgctxt "wsUmh9"
+msgid "Team"
+msgstr "Team"
+
+#: src/app/[lang]/(org)/org/[organizationSlug]/page.tsx
+msgctxt "Dd6GhQ"
+msgid "Move people between segments. Their assigned training follows."
+msgstr "Move people between segments. Their assigned training follows."
+
+#: src/app/[lang]/(org)/org/page.tsx
+msgctxt "W_Zr9w"
+msgid "The teams you belong to."
+msgstr "The teams you belong to."
+
+#: src/app/[lang]/(org)/org/page.tsx
+msgctxt "3pRPLP"
+msgid "You are not part of a team yet."
+msgstr "You are not part of a team yet."
+
+#: src/app/[lang]/(org)/org/page.tsx
+msgctxt "sFoGzO"
+msgid "No organizations"
+msgstr "No organizations"
+
 #: src/app/[lang]/(progress)/_components/metric-pills.tsx
 #: src/app/[lang]/(progress)/activity/page.tsx
 msgctxt "ZmlNQ3"

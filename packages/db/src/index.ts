@@ -40,6 +40,7 @@ export type {
   LessonQuestionStatus,
   LessonQuestionThread,
   Member,
+  MemberTag,
   Organization,
   Sentence,
   Subscription,

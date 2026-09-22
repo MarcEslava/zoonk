@@ -3,14 +3,9 @@
 import { setMemberTags } from "@zoonk/core/organizations/set-member-tags";
 import { parseFormField } from "@zoonk/utils/form";
 import { isUuid } from "@zoonk/utils/uuid";
-import { getExtracted } from "next-intl/server";
 import { revalidatePath } from "next/cache";
 
-export type UpdateMemberTagsState = {
-  error: string | null;
-  status: "idle" | "error" | "success";
-  submissionId: number;
-};
+export type UpdateMemberTagsState = { status: "idle" | "error" | "success"; submissionId: number };
 
 /** Checkboxes only submit what is ticked, so an empty set clears every segment. */
 function parseTagIds(formData: FormData): string[] {
@@ -20,26 +15,30 @@ function parseTagIds(formData: FormData): string[] {
     .filter((value) => isUuid(value));
 }
 
+/**
+ * Reports an outcome rather than a message: a Server Action runs outside a
+ * route, where the locale of the page that submitted it cannot be resolved, so
+ * the form that owns this copy translates it.
+ */
 export async function updateMemberTagsAction(
   previousState: UpdateMemberTagsState,
   formData: FormData,
 ): Promise<UpdateMemberTagsState> {
-  const t = await getExtracted();
   const submissionId = previousState.submissionId + 1;
   const memberId = parseFormField(formData, "memberId");
 
   if (!isUuid(memberId)) {
-    return { error: t("Could not save the segments."), status: "error", submissionId };
+    return { status: "error", submissionId };
   }
 
   const result = await setMemberTags({ memberId, tagIds: parseTagIds(formData) });
 
   if (result.status !== "updated") {
-    return { error: t("Could not save the segments."), status: "error", submissionId };
+    return { status: "error", submissionId };
   }
 
   /** Every locale renders the same team, so the whole route is revalidated. */
   revalidatePath("/[lang]/org/[organizationSlug]", "page");
 
-  return { error: null, status: "success", submissionId };
+  return { status: "success", submissionId };
 }

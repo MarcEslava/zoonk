@@ -14,23 +14,28 @@ import { type UpdateMemberTagsState, updateMemberTagsAction } from "./_actions/u
  */
 export function MemberTagsForm({
   memberId,
+  memberName,
   memberTagIds,
   tags,
 }: {
   memberId: string;
+  memberName: string;
   memberTagIds: string[];
   tags: MemberTag[];
 }) {
   const t = useExtracted();
 
   const [state, formAction] = useActionState(updateMemberTagsAction, {
-    error: null,
     status: "idle",
     submissionId: 0,
   } satisfies UpdateMemberTagsState);
 
   return (
-    <form action={formAction} className="flex flex-col gap-3">
+    <form
+      action={formAction}
+      aria-label={t("Segments for {name}", { name: memberName })}
+      className="flex flex-col gap-3"
+    >
       <input name="memberId" type="hidden" value={memberId} />
 
       <div className="flex flex-wrap gap-x-4 gap-y-2">
@@ -47,7 +52,7 @@ export function MemberTagsForm({
           key={state.submissionId}
           successMessage={state.status === "success" ? t("Segments saved.") : null}
         />
-        {state.status === "error" && <FieldError>{state.error}</FieldError>}
+        {state.status === "error" && <FieldError>{t("Could not save the segments.")}</FieldError>}
       </div>
 
       <SubmitButton className="self-start">{t("Save segments")}</SubmitButton>

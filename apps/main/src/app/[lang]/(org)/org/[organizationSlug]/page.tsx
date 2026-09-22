@@ -81,6 +81,7 @@ async function TeamContent({
 
           <MemberTagsForm
             memberId={member.id}
+            memberName={member.name}
             memberTagIds={member.tags.map((tag) => tag.id)}
             tags={tags}
           />

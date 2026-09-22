@@ -1062,15 +1062,20 @@ msgctxt "AaFZIp"
 msgid "What's your goal?"
 msgstr "What's your goal?"
 
-#: src/app/[lang]/(org)/org/[organizationSlug]/_actions/update-member-tags.ts
-msgctxt "iqlXAd"
-msgid "Could not save the segments."
-msgstr "Could not save the segments."
+#: src/app/[lang]/(org)/org/[organizationSlug]/member-tags-form.tsx
+msgctxt "vdTxxt"
+msgid "Segments for {name}"
+msgstr "Segments for {name}"
 
 #: src/app/[lang]/(org)/org/[organizationSlug]/member-tags-form.tsx
 msgctxt "W4weiY"
 msgid "Segments saved."
 msgstr "Segments saved."
+
+#: src/app/[lang]/(org)/org/[organizationSlug]/member-tags-form.tsx
+msgctxt "iqlXAd"
+msgid "Could not save the segments."
+msgstr "Could not save the segments."
 
 #: src/app/[lang]/(org)/org/[organizationSlug]/member-tags-form.tsx
 msgctxt "Tt9chI"

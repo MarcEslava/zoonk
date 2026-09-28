@@ -66,6 +66,7 @@
     "./navigation/external-redirect": "./src/navigation/external-redirect.ts",
     "./organizations/access": "./src/organizations/get-organization-access.ts",
     "./organizations/create-assignment": "./src/organizations/create-assignment.ts",
+    "./organizations/create-member-tag": "./src/organizations/create-member-tag.ts",
     "./organizations/list-current-user-assignments": "./src/organizations/list-current-user-assignments.ts",
     "./organizations/list-current-user-organizations": "./src/organizations/list-current-user-organizations.ts",
     "./organizations/list-members": "./src/organizations/list-organization-members.ts",

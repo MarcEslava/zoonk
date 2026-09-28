@@ -73,4 +73,31 @@ test.describe("Organization Team", () => {
 
     await context.close();
   });
+
+  test("an owner creates the first segment and can grant it right away", async ({ browser }) => {
+    const organization = await createOrganization({ kind: "school" });
+
+    const owner = await createE2EUser(getBaseURL(), {
+      orgRole: "owner",
+      orgSlug: organization.slug,
+    });
+
+    const context = await browser.newContext({ storageState: owner.storageState });
+    const page = await context.newPage();
+
+    await page.goto(`/org/${organization.slug}`);
+
+    await expect(page.getByText(/no segments yet/iu)).toBeVisible();
+
+    await page.getByLabel(/new segment/iu).fill("  Zona : Levante ");
+    await page.getByRole("button", { name: /add segment/iu }).click();
+
+    await expect(page.getByRole("checkbox", { name: "zona:levante" })).toBeVisible();
+
+    const tags = await prisma.memberTag.findMany({ where: { organizationId: organization.id } });
+
+    expect(tags.map((tag) => tag.name)).toStrictEqual(["zona:levante"]);
+
+    await context.close();
+  });
 });

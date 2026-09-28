@@ -1062,6 +1062,36 @@ msgctxt "AaFZIp"
 msgid "What's your goal?"
 msgstr "What's your goal?"
 
+#: src/app/[lang]/(org)/org/[organizationSlug]/create-tag-form.tsx
+msgctxt "pSqa--"
+msgid "That segment already exists."
+msgstr "That segment already exists."
+
+#: src/app/[lang]/(org)/org/[organizationSlug]/create-tag-form.tsx
+msgctxt "7GV3J0"
+msgid "Could not create the segment."
+msgstr "Could not create the segment."
+
+#: src/app/[lang]/(org)/org/[organizationSlug]/create-tag-form.tsx
+msgctxt "fJJA1k"
+msgid "Enter a name for the segment."
+msgstr "Enter a name for the segment."
+
+#: src/app/[lang]/(org)/org/[organizationSlug]/create-tag-form.tsx
+msgctxt "uHnMYi"
+msgid "New segment"
+msgstr "New segment"
+
+#: src/app/[lang]/(org)/org/[organizationSlug]/create-tag-form.tsx
+msgctxt "luKDpU"
+msgid "Add segment"
+msgstr "Add segment"
+
+#: src/app/[lang]/(org)/org/[organizationSlug]/create-tag-form.tsx
+msgctxt "mILyBF"
+msgid "Use a prefix to group segments, such as zona:, funcio: or linia:."
+msgstr "Use a prefix to group segments, such as zona:, funcio: or linia:."
+
 #: src/app/[lang]/(org)/org/[organizationSlug]/member-tags-form.tsx
 msgctxt "vdTxxt"
 msgid "Segments for {name}"

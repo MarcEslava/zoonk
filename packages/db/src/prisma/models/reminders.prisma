@@ -1,0 +1,45 @@
+/// One browser's permission to receive a learner's reminders. The endpoint is
+/// the push service's address for that browser, so it identifies the device and
+/// belongs to whoever signed in on it most recently.
+model PushSubscription {
+  id        String   @id @default(dbgenerated("uuidv7()")) @db.Uuid
+  userId    String   @map("user_id") @db.Uuid
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  endpoint  String   @unique
+  p256dh    String
+  auth      String
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@index([userId])
+  @@map("push_subscriptions")
+}
+
+/// When an organization reminds its team: one weekday time in the
+/// organization's own time zone. Scheduling per organization means no
+/// learner's location is ever stored to decide when their reminder is due.
+model OrganizationReminderSchedule {
+  id             String       @id @default(dbgenerated("uuidv7()")) @db.Uuid
+  organizationId String       @unique @map("organization_id") @db.Uuid
+  organization   Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  timeZone       String       @map("time_zone")
+  hour           Int          @db.SmallInt
+  createdAt      DateTime     @default(now()) @map("created_at")
+  updatedAt      DateTime     @default(now()) @updatedAt @map("updated_at")
+
+  @@map("organization_reminder_schedules")
+}
+
+/// The local day a learner was last reminded. It exists only to keep reminders
+/// to one a day however often the sender runs, and rows older than a week are
+/// pruned: nothing about a learner's habits is kept beyond that purpose.
+model ReminderDelivery {
+  id     String   @id @default(dbgenerated("uuidv7()")) @db.Uuid
+  userId String   @map("user_id") @db.Uuid
+  user   User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  date   DateTime @db.Date
+  sentAt DateTime @default(now()) @map("sent_at")
+
+  @@unique([userId, date], name: "userReminderDate")
+  @@index([date])
+  @@map("reminder_deliveries")
+}

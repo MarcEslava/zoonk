@@ -109,6 +109,7 @@
     "./progress/score-date-range": "./src/progress/score-date-range.ts",
     "./progress/score-performance": "./src/progress/score-performance.ts",
     "./progress/user-progress": "./src/progress/user-progress.ts",
+    "./reminders/push-subscription": "./src/reminders/save-push-subscription.ts",
     "./security/headers": "./src/security/headers.ts",
     "./subscriptions/apple-contract": "./src/subscriptions/apple-contract.ts",
     "./subscriptions/apple-notification": "./src/subscriptions/process-apple-subscription-notification.ts",
@@ -143,10 +144,12 @@
     "@zoonk/db": "workspace:*",
     "@zoonk/mailer": "workspace:*",
     "@zoonk/utils": "workspace:*",
+    "web-push": "3.6.7",
     "zod": "catalog:"
   },
   "devDependencies": {
     "@types/react": "catalog:",
+    "@types/web-push": "3.6.4",
     "@zoonk/testing": "workspace:*",
     "@zoonk/tsconfig": "workspace:*",
     "typescript": "catalog:",

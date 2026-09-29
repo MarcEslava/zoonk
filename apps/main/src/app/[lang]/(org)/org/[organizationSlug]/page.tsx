@@ -1,4 +1,3 @@
-import { listCurrentUserOrganizations } from "@zoonk/core/organizations/list-current-user-organizations";
 import { listOrganizationMembers } from "@zoonk/core/organizations/list-members";
 import { listOrganizationTags } from "@zoonk/core/organizations/list-tags";
 import {
@@ -17,18 +16,9 @@ import { type Metadata } from "next";
 import { getExtracted } from "next-intl/server";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
+import { findOrganization } from "./_utils/find-organization";
 import { CreateTagForm } from "./create-tag-form";
 import { MemberTagsForm } from "./member-tags-form";
-
-/**
- * The caller's own memberships already carry the organization, so resolving the
- * slug through them avoids a lookup that would confirm an organization exists
- * to someone who does not belong to it.
- */
-async function findOrganization(organizationSlug: string) {
-  const memberships = await listCurrentUserOrganizations();
-  return memberships.find((membership) => membership.organization.slug === organizationSlug);
-}
 
 export async function generateMetadata({
   params,

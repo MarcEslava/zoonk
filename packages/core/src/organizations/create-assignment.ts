@@ -8,7 +8,9 @@ type RecipientDraft = { matchedTagId: string | null; memberId: string; userId: s
 
 /**
  * An organization can require its own curriculum or anything already public,
- * but never another organization's private course.
+ * but never another organization's private course. The course must also be
+ * published: learners can only open published curriculum, so requiring a draft
+ * would create an obligation nobody could complete.
  */
 function getAssignableCourseWhere({
   courseId,
@@ -17,7 +19,11 @@ function getAssignableCourseWhere({
   courseId: string;
   organizationId: string;
 }) {
-  return { OR: [{ organizationId }, { organization: { kind: "brand" } }], id: courseId };
+  return {
+    OR: [{ organizationId }, { organization: { kind: "brand" } }],
+    id: courseId,
+    isPublished: true,
+  };
 }
 
 /**

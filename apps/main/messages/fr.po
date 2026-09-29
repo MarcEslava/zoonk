@@ -1062,6 +1062,117 @@ msgctxt "AaFZIp"
 msgid "What's your goal?"
 msgstr "Quel est ton objectif ?"
 
+#: src/app/[lang]/(org)/org/[organizationSlug]/assignments/assign-course-form.tsx
+msgctxt "8YIOvN"
+msgid "That course can no longer be assigned."
+msgstr ""
+
+#: src/app/[lang]/(org)/org/[organizationSlug]/assignments/assign-course-form.tsx
+msgctxt "9GVvK_"
+msgid "Could not create the assignment."
+msgstr ""
+
+#: src/app/[lang]/(org)/org/[organizationSlug]/assignments/assign-course-form.tsx
+msgctxt "Bmr_VY"
+msgid "Check the course, the deadline and the daily minutes."
+msgstr ""
+
+#: src/app/[lang]/(org)/org/[organizationSlug]/assignments/assign-course-form.tsx
+msgctxt "vLNH26"
+msgid "Choose at least one segment or person."
+msgstr ""
+
+#: src/app/[lang]/(org)/org/[organizationSlug]/assignments/assign-course-form.tsx
+msgctxt "AyEcCa"
+msgid "Assign a course"
+msgstr ""
+
+#: src/app/[lang]/(org)/org/[organizationSlug]/assignments/assign-course-form.tsx
+msgctxt "onDfe_"
+msgid "Course"
+msgstr ""
+
+#: src/app/[lang]/(org)/org/[organizationSlug]/assignments/assign-course-form.tsx
+msgctxt "td0zeb"
+msgid "Minutes per day"
+msgstr ""
+
+#: src/app/[lang]/(org)/org/[organizationSlug]/assignments/assign-course-form.tsx
+msgctxt "8_Da7A"
+msgid "Deadline"
+msgstr ""
+
+#: src/app/[lang]/(org)/org/[organizationSlug]/assignments/assign-course-form.tsx
+msgctxt "uX1ibe"
+msgid "Optional. Leave empty for ongoing training."
+msgstr ""
+
+#: src/app/[lang]/(org)/org/[organizationSlug]/assignments/assign-course-form.tsx
+msgctxt "VF3DcR"
+msgid "Segments"
+msgstr ""
+
+#: src/app/[lang]/(org)/org/[organizationSlug]/assignments/assign-course-form.tsx
+msgctxt "NhKrYQ"
+msgid "Everyone in a segment is included, including people who join it later."
+msgstr ""
+
+#: src/app/[lang]/(org)/org/[organizationSlug]/assignments/assign-course-form.tsx
+msgctxt "Tpy00S"
+msgid "People"
+msgstr ""
+
+#: src/app/[lang]/(org)/org/[organizationSlug]/assignments/assign-course-form.tsx
+msgctxt "MnmTqh"
+msgid "Course assigned."
+msgstr ""
+
+#: src/app/[lang]/(org)/org/[organizationSlug]/assignments/assign-course-form.tsx
+msgctxt "2gH4pN"
+msgid "Assign course"
+msgstr ""
+
+#: src/app/[lang]/(org)/org/[organizationSlug]/assignments/page.tsx
+#: src/app/[lang]/(org)/org/[organizationSlug]/layout.tsx
+msgctxt "oBtgwy"
+msgid "Assignments"
+msgstr ""
+
+#: src/app/[lang]/(org)/org/[organizationSlug]/assignments/page.tsx
+msgctxt "Sy0JnT"
+msgid "Current assignments"
+msgstr ""
+
+#: src/app/[lang]/(org)/org/[organizationSlug]/assignments/page.tsx
+msgctxt "bmr_vx"
+msgid "{count, plural, one {Reaches # person} other {Reaches # people}}"
+msgstr ""
+
+#: src/app/[lang]/(org)/org/[organizationSlug]/assignments/page.tsx
+msgctxt "LG2TRI"
+msgid "{minutes, number} min/day"
+msgstr ""
+
+#: src/app/[lang]/(org)/org/[organizationSlug]/assignments/page.tsx
+msgctxt "5vDqi-"
+msgid "Due {date}"
+msgstr ""
+
+#: src/app/[lang]/(org)/org/[organizationSlug]/assignments/page.tsx
+msgctxt "nTr7Ig"
+msgid "Publish a course in this organization to assign it to your team."
+msgstr ""
+
+#: src/app/[lang]/(org)/org/[organizationSlug]/assignments/page.tsx
+msgctxt "M7aFMB"
+msgid "No courses to assign"
+msgstr ""
+
+#: src/app/[lang]/(org)/org/[organizationSlug]/assignments/page.tsx
+msgctxt "3t_eqa"
+msgid "Require a course from part of your team, with a daily target and a deadline."
+msgstr ""
+
 #: src/app/[lang]/(org)/org/[organizationSlug]/create-tag-form.tsx
 msgctxt "pSqa--"
 msgid "That segment already exists."
@@ -1090,6 +1201,17 @@ msgstr ""
 #: src/app/[lang]/(org)/org/[organizationSlug]/create-tag-form.tsx
 msgctxt "mILyBF"
 msgid "Use a prefix to group segments, such as zona:, funcio: or linia:."
+msgstr ""
+
+#: src/app/[lang]/(org)/org/[organizationSlug]/layout.tsx
+msgctxt "K56Dim"
+msgid "Organization"
+msgstr ""
+
+#: src/app/[lang]/(org)/org/[organizationSlug]/layout.tsx
+#: src/app/[lang]/(org)/org/[organizationSlug]/page.tsx
+msgctxt "wsUmh9"
+msgid "Team"
 msgstr ""
 
 #: src/app/[lang]/(org)/org/[organizationSlug]/member-tags-form.tsx
@@ -1126,11 +1248,6 @@ msgstr ""
 #: src/app/[lang]/(org)/org/[organizationSlug]/page.tsx
 msgctxt "uncWxg"
 msgid "No segments yet"
-msgstr ""
-
-#: src/app/[lang]/(org)/org/[organizationSlug]/page.tsx
-msgctxt "wsUmh9"
-msgid "Team"
 msgstr ""
 
 #: src/app/[lang]/(org)/org/[organizationSlug]/page.tsx

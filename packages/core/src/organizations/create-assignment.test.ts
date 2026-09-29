@@ -78,6 +78,20 @@ describe(createAssignment, () => {
     ).resolves.toStrictEqual({ status: "courseNotAvailable" });
   });
 
+  it("refuses an unpublished course that no learner could open", async () => {
+    const { organization, ownerMember } = await organizationFixtureWithOwner();
+
+    const draft = await courseFixture({ isPublished: false, organizationId: organization.id });
+
+    await expect(
+      createAssignment({
+        courseId: draft.id,
+        organizationId: organization.id,
+        targets: { memberIds: [ownerMember.id] },
+      }),
+    ).resolves.toStrictEqual({ status: "courseNotAvailable" });
+  });
+
   it("accepts a public brand course", async () => {
     const { organization, ownerMember } = await organizationFixtureWithOwner();
     const brandOrg = await organizationFixture({ kind: "brand" });

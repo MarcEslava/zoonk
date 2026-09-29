@@ -1,5 +1,6 @@
 import "server-only";
 import { prisma } from "@zoonk/db";
+import { getSession } from "../users/get-session";
 import { getProgressSession } from "./_utils/progress-cache";
 import { type WeeklyHabit, computeWeeklyHabit, getHabitWindowStart } from "./_utils/weekly-habit";
 import { getRequestProgressDateContext } from "./get-request-date-context";
@@ -57,4 +58,20 @@ export async function getCurrentUserHabit(): Promise<WeeklyHabit | null> {
   });
 
   return computeWeeklyHabit({ dailyGoalSeconds, days, today: dateContext.currentDate });
+}
+
+/**
+ * Wraps the habit as a current-user resource so delivery adapters can tell
+ * missing authentication apart from a learner no organization asks for daily
+ * study, whose habit is null. The plain session read keeps this check outside
+ * the private cache, where progress cache tags cannot be applied.
+ */
+export async function getCurrentUserHabitResource(): Promise<{ habit: WeeklyHabit | null } | null> {
+  const session = await getSession();
+
+  if (!session) {
+    return null;
+  }
+
+  return { habit: await getCurrentUserHabit() };
 }

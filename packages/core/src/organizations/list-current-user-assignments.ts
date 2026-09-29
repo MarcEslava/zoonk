@@ -35,3 +35,17 @@ export async function listCurrentUserAssignments() {
     organization: period.assignment.course.organization,
   }));
 }
+
+/**
+ * Wraps the learner's obligations as a current-user resource so delivery
+ * adapters can tell missing authentication apart from having none.
+ */
+export async function getCurrentUserAssignments() {
+  const session = await getSession();
+
+  if (!session) {
+    return null;
+  }
+
+  return { assignments: await listCurrentUserAssignments() };
+}

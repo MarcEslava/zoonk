@@ -28,3 +28,17 @@ export async function listCurrentUserOrganizations() {
     role: membership.role,
   }));
 }
+
+/**
+ * Wraps the membership list as a current-user resource so delivery adapters
+ * can tell missing authentication apart from belonging to no organization.
+ */
+export async function getCurrentUserOrganizations() {
+  const session = await getSession();
+
+  if (!session) {
+    return null;
+  }
+
+  return { organizations: await listCurrentUserOrganizations() };
+}

@@ -2717,6 +2717,153 @@
         }
       }
     },
+    "/me/assignments": {
+      "get": {
+        "operationId": "listCurrentUserAssignments",
+        "security": [
+          {
+            "bearerAuth": []
+          },
+          {
+            "cookieAuth": []
+          }
+        ],
+        "summary": "List current user's assigned courses",
+        "tags": [
+          "Organizations"
+        ],
+        "responses": {
+          "200": {
+            "description": "Courses the learner's organizations currently require",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CurrentUserAssignmentListResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authentication required",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/me/habit": {
+      "get": {
+        "operationId": "getCurrentUserHabit",
+        "security": [
+          {
+            "bearerAuth": []
+          },
+          {
+            "cookieAuth": []
+          }
+        ],
+        "summary": "Get current user's weekly habit",
+        "tags": [
+          "Organizations"
+        ],
+        "responses": {
+          "200": {
+            "description": "The learner's own weekly habit",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CurrentUserHabitResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authentication required",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/me/organizations": {
+      "get": {
+        "operationId": "listCurrentUserOrganizations",
+        "security": [
+          {
+            "bearerAuth": []
+          },
+          {
+            "cookieAuth": []
+          }
+        ],
+        "summary": "List current user's organizations",
+        "tags": [
+          "Organizations"
+        ],
+        "responses": {
+          "200": {
+            "description": "Organizations the current user belongs to, with their role",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CurrentUserOrganizationListResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authentication required",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/me/progress": {
       "get": {
         "description": "Compact progress totals for Home and overview surfaces. Calendar boundaries use the validated timezone resolved from the request and fall back to UTC.",
@@ -8115,6 +8262,192 @@
           "question",
           "status",
           "updatedAt"
+        ],
+        "additionalProperties": false
+      },
+      "CurrentUserAssignmentListResponse": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CurrentUserAssignment"
+            }
+          }
+        },
+        "required": [
+          "data"
+        ],
+        "additionalProperties": false
+      },
+      "CurrentUserAssignment": {
+        "type": "object",
+        "properties": {
+          "assignedAt": {
+            "type": "string",
+            "format": "date-time",
+            "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z))$",
+            "description": "When this obligation began for the learner"
+          },
+          "course": {
+            "$ref": "#/components/schemas/AssignedCourse"
+          },
+          "dueAt": {
+            "nullable": true,
+            "description": "Deadline, or null for ongoing training",
+            "type": "string",
+            "format": "date-time",
+            "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z))$"
+          },
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$",
+            "description": "Assignment ID"
+          },
+          "minDailySeconds": {
+            "nullable": true,
+            "description": "Daily study the organization asks for, in seconds",
+            "type": "integer",
+            "minimum": -9007199254740991,
+            "maximum": 9007199254740991
+          },
+          "organization": {
+            "$ref": "#/components/schemas/OrganizationSummary"
+          }
+        },
+        "required": [
+          "assignedAt",
+          "course",
+          "dueAt",
+          "id",
+          "minDailySeconds",
+          "organization"
+        ],
+        "additionalProperties": false
+      },
+      "AssignedCourse": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+          },
+          "imageUrl": {
+            "nullable": true,
+            "type": "string"
+          },
+          "language": {
+            "type": "string"
+          },
+          "slug": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "imageUrl",
+          "language",
+          "slug",
+          "title"
+        ],
+        "additionalProperties": false
+      },
+      "CurrentUserHabitResponse": {
+        "type": "object",
+        "properties": {
+          "habit": {
+            "nullable": true,
+            "description": "Null when no organization asks the learner for daily study",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/WeeklyHabit"
+              }
+            ]
+          }
+        },
+        "required": [
+          "habit"
+        ],
+        "additionalProperties": false
+      },
+      "WeeklyHabit": {
+        "type": "object",
+        "properties": {
+          "dailyGoalSeconds": {
+            "type": "integer",
+            "minimum": -9007199254740991,
+            "maximum": 9007199254740991,
+            "description": "Most demanding daily goal among live assignments"
+          },
+          "todaySeconds": {
+            "type": "integer",
+            "minimum": -9007199254740991,
+            "maximum": 9007199254740991,
+            "description": "Seconds studied today, in the learner's local day"
+          },
+          "weekGoalDays": {
+            "type": "integer",
+            "minimum": -9007199254740991,
+            "maximum": 9007199254740991,
+            "description": "Working days a week must meet the goal on"
+          },
+          "weekMetDays": {
+            "type": "integer",
+            "minimum": -9007199254740991,
+            "maximum": 9007199254740991,
+            "description": "Working days this week that met the goal"
+          },
+          "weeklyStreak": {
+            "type": "integer",
+            "minimum": -9007199254740991,
+            "maximum": 9007199254740991,
+            "description": "Consecutive weeks that kept the habit"
+          }
+        },
+        "required": [
+          "dailyGoalSeconds",
+          "todaySeconds",
+          "weekGoalDays",
+          "weekMetDays",
+          "weeklyStreak"
+        ],
+        "additionalProperties": false,
+        "description": "The learner's own weekly habit. Weekends never count, and no organization can read it."
+      },
+      "CurrentUserOrganizationListResponse": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CurrentUserOrganization"
+            }
+          }
+        },
+        "required": [
+          "data"
+        ],
+        "additionalProperties": false
+      },
+      "CurrentUserOrganization": {
+        "type": "object",
+        "properties": {
+          "organization": {
+            "$ref": "#/components/schemas/OrganizationSummary"
+          },
+          "role": {
+            "type": "string",
+            "description": "Role inside the organization: owner, admin or member"
+          }
+        },
+        "required": [
+          "organization",
+          "role"
         ],
         "additionalProperties": false
       },

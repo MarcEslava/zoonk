@@ -17,6 +17,7 @@ import { feedbackPaths } from "./paths/feedback";
 import { generationPaths } from "./paths/generations";
 import { lessonQuestionPaths } from "./paths/lesson-questions";
 import { lessonResourcePaths } from "./paths/lesson-resources";
+import { organizationPaths } from "./paths/organizations";
 import { progressPaths } from "./paths/progress";
 import { sessionPaths } from "./paths/sessions";
 import { subscriptionPaths } from "./paths/subscriptions";
@@ -77,6 +78,7 @@ const paths = withInternalErrorResponses({
   ...generationPaths,
   ...lessonResourcePaths,
   ...lessonQuestionPaths,
+  ...organizationPaths,
   ...currentUserProgressPaths,
   ...usernamePaths,
   ...feedbackPaths,

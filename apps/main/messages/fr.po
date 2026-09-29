@@ -72,6 +72,9 @@ msgstr "Page d’accueil"
 
 #: src/app/[lang]/(catalog)/_components/command-palette.tsx
 #: src/app/[lang]/(catalog)/_components/navbar-links.tsx
+#: src/app/[lang]/(org)/org/[organizationSlug]/courses/[courseId]/page.tsx
+#: src/app/[lang]/(org)/org/[organizationSlug]/courses/page.tsx
+#: src/app/[lang]/(org)/org/[organizationSlug]/layout.tsx
 msgctxt "R85gsW"
 msgid "Courses"
 msgstr "Cours"
@@ -751,6 +754,7 @@ msgid "Remove course"
 msgstr "Retirer le cours"
 
 #: src/app/[lang]/(catalog)/my/user-course-list.tsx
+#: src/app/[lang]/(org)/org/[organizationSlug]/courses/page.tsx
 msgctxt "BDHWkf"
 msgid "No courses yet"
 msgstr "Aucun cours pour l'instant"
@@ -947,6 +951,7 @@ msgid "Graphic Design"
 msgstr "Design graphique"
 
 #: src/app/[lang]/(catalog)/start/learn/learn-content.tsx
+#: src/app/[lang]/(org)/org/[organizationSlug]/lessons/[lessonId]/page.tsx
 #: src/lib/categories/category.ts
 msgctxt "djJp6c"
 msgid "History"
@@ -1290,6 +1295,36 @@ msgctxt "WuTCK7"
 msgid "Save reminders"
 msgstr ""
 
+#: src/app/[lang]/(org)/org/[organizationSlug]/courses/[courseId]/page.tsx
+msgctxt "IaZMg8"
+msgid "{count, plural, one {# change to approve} other {# changes to approve}}"
+msgstr ""
+
+#: src/app/[lang]/(org)/org/[organizationSlug]/courses/[courseId]/page.tsx
+msgctxt "kjUNOW"
+msgid "Waiting for approval"
+msgstr ""
+
+#: src/app/[lang]/(org)/org/[organizationSlug]/courses/[courseId]/page.tsx
+msgctxt "6XFO_C"
+msgid "Approved"
+msgstr ""
+
+#: src/app/[lang]/(org)/org/[organizationSlug]/courses/page.tsx
+msgctxt "uCwbv9"
+msgid "Courses your organization owns appear here for review."
+msgstr ""
+
+#: src/app/[lang]/(org)/org/[organizationSlug]/courses/page.tsx
+msgctxt "PGJpP6"
+msgid "Not published"
+msgstr ""
+
+#: src/app/[lang]/(org)/org/[organizationSlug]/courses/page.tsx
+msgctxt "AmDWis"
+msgid "Correct lessons and approve them before your team sees the change."
+msgstr ""
+
 #: src/app/[lang]/(org)/org/[organizationSlug]/create-tag-form.tsx
 msgctxt "pSqa--"
 msgid "That segment already exists."
@@ -1329,6 +1364,269 @@ msgstr ""
 #: src/app/[lang]/(org)/org/[organizationSlug]/page.tsx
 msgctxt "wsUmh9"
 msgid "Team"
+msgstr ""
+
+#: src/app/[lang]/(org)/org/[organizationSlug]/lessons/[lessonId]/approve-lesson-form.tsx
+msgctxt "xc1D1N"
+msgid "Approve lesson"
+msgstr ""
+
+#: src/app/[lang]/(org)/org/[organizationSlug]/lessons/[lessonId]/approve-lesson-form.tsx
+msgctxt "rshH3p"
+msgid "Approve and publish"
+msgstr ""
+
+#: src/app/[lang]/(org)/org/[organizationSlug]/lessons/[lessonId]/approve-lesson-form.tsx
+msgctxt "6y4DP0"
+msgid "Approved. Your team now sees this version."
+msgstr ""
+
+#: src/app/[lang]/(org)/org/[organizationSlug]/lessons/[lessonId]/approve-lesson-form.tsx
+#: src/app/[lang]/(org)/org/[organizationSlug]/lessons/[lessonId]/page.tsx
+msgctxt "iYOUbJ"
+msgid "You edited this lesson, so someone else has to approve it."
+msgstr ""
+
+#: src/app/[lang]/(org)/org/[organizationSlug]/lessons/[lessonId]/approve-lesson-form.tsx
+msgctxt "S3oqBe"
+msgid "Could not approve the lesson."
+msgstr ""
+
+#: src/app/[lang]/(org)/org/[organizationSlug]/lessons/[lessonId]/page.tsx
+msgctxt "h6ernD"
+msgid "Review lesson"
+msgstr ""
+
+#: src/app/[lang]/(org)/org/[organizationSlug]/lessons/[lessonId]/page.tsx
+msgctxt "q_Bm4b"
+msgid "Approved. Your team sees exactly what is below."
+msgstr ""
+
+#: src/app/[lang]/(org)/org/[organizationSlug]/lessons/[lessonId]/page.tsx
+msgctxt "QlKi45"
+msgid "Fill in the blank"
+msgstr ""
+
+#: src/app/[lang]/(org)/org/[organizationSlug]/lessons/[lessonId]/page.tsx
+msgctxt "LqIUvv"
+msgid "Match columns"
+msgstr ""
+
+#: src/app/[lang]/(org)/org/[organizationSlug]/lessons/[lessonId]/page.tsx
+msgctxt "jrIG70"
+msgid "Multiple choice"
+msgstr ""
+
+#: src/app/[lang]/(org)/org/[organizationSlug]/lessons/[lessonId]/page.tsx
+msgctxt "3LXmOC"
+msgid "Sort order"
+msgstr ""
+
+#: src/app/[lang]/(org)/org/[organizationSlug]/lessons/[lessonId]/page.tsx
+#: src/lib/lessons.ts
+msgctxt "E1bF_X"
+msgid "Explanation"
+msgstr "Explication"
+
+#: src/app/[lang]/(org)/org/[organizationSlug]/lessons/[lessonId]/page.tsx
+msgctxt "8ekK6e"
+msgid "{action, select, approved {Approved} draftDiscarded {Draft discarded} other {Step edited}}"
+msgstr ""
+
+#: src/app/[lang]/(org)/org/[organizationSlug]/lessons/[lessonId]/page.tsx
+msgctxt "7gUzLG"
+msgid "Former member"
+msgstr ""
+
+#: src/app/[lang]/(org)/org/[organizationSlug]/lessons/[lessonId]/page.tsx
+msgctxt "I_zAD1"
+msgid "Changes stay as drafts until someone who did not make them approves the lesson."
+msgstr ""
+
+#: src/app/[lang]/(org)/org/[organizationSlug]/lessons/[lessonId]/page.tsx
+msgctxt "U74a92"
+msgid "Step {number, number}"
+msgstr ""
+
+#: src/app/[lang]/(org)/org/[organizationSlug]/lessons/[lessonId]/page.tsx
+msgctxt "rxa7kq"
+msgid "Draft by {name}"
+msgstr ""
+
+#: src/app/[lang]/(org)/org/[organizationSlug]/lessons/[lessonId]/page.tsx
+msgctxt "o7wV7N"
+msgid "Edit step {number, number}"
+msgstr ""
+
+#: src/app/[lang]/(org)/org/[organizationSlug]/lessons/[lessonId]/step-editors/fill-blank-editor.tsx
+#: src/app/[lang]/(org)/org/[organizationSlug]/lessons/[lessonId]/step-editors/match-columns-editor.tsx
+#: src/app/[lang]/(org)/org/[organizationSlug]/lessons/[lessonId]/step-editors/multiple-choice-editor.tsx
+#: src/app/[lang]/(org)/org/[organizationSlug]/lessons/[lessonId]/step-editors/sort-order-editor.tsx
+msgctxt "kgOBET"
+msgid "Question"
+msgstr ""
+
+#: src/app/[lang]/(org)/org/[organizationSlug]/lessons/[lessonId]/step-editors/fill-blank-editor.tsx
+msgctxt "82Zf4j"
+msgid "Sentence"
+msgstr ""
+
+#: src/app/[lang]/(org)/org/[organizationSlug]/lessons/[lessonId]/step-editors/fill-blank-editor.tsx
+msgctxt "322hg4"
+msgid "Write [BLANK] where each answer goes, in the same order as the answers."
+msgstr ""
+
+#: src/app/[lang]/(org)/org/[organizationSlug]/lessons/[lessonId]/step-editors/fill-blank-editor.tsx
+msgctxt "2mUitd"
+msgid "Answers"
+msgstr ""
+
+#: src/app/[lang]/(org)/org/[organizationSlug]/lessons/[lessonId]/step-editors/fill-blank-editor.tsx
+msgctxt "sQ3B59"
+msgid "Wrong words offered next to the answers."
+msgstr ""
+
+#: src/app/[lang]/(org)/org/[organizationSlug]/lessons/[lessonId]/step-editors/fill-blank-editor.tsx
+msgctxt "d8TeAo"
+msgid "Distractors"
+msgstr ""
+
+#: src/app/[lang]/(org)/org/[organizationSlug]/lessons/[lessonId]/step-editors/fill-blank-editor.tsx
+#: src/app/[lang]/(org)/org/[organizationSlug]/lessons/[lessonId]/step-editors/multiple-choice-editor.tsx
+#: src/app/[lang]/(org)/org/[organizationSlug]/lessons/[lessonId]/step-editors/sort-order-editor.tsx
+#: src/components/feedback/feedback-dialog.tsx
+msgctxt "Ejhdi4"
+msgid "Feedback"
+msgstr "Avis"
+
+#: src/app/[lang]/(org)/org/[organizationSlug]/lessons/[lessonId]/step-editors/match-columns-editor.tsx
+msgctxt "RJucRp"
+msgid "Pairs"
+msgstr ""
+
+#: src/app/[lang]/(org)/org/[organizationSlug]/lessons/[lessonId]/step-editors/match-columns-editor.tsx
+msgctxt "4EGYZ3"
+msgid "Left {number, number}"
+msgstr ""
+
+#: src/app/[lang]/(org)/org/[organizationSlug]/lessons/[lessonId]/step-editors/match-columns-editor.tsx
+msgctxt "FDKBpQ"
+msgid "Right {number, number}"
+msgstr ""
+
+#: src/app/[lang]/(org)/org/[organizationSlug]/lessons/[lessonId]/step-editors/match-columns-editor.tsx
+msgctxt "u9DHwh"
+msgid "Remove pair {number, number}"
+msgstr ""
+
+#: src/app/[lang]/(org)/org/[organizationSlug]/lessons/[lessonId]/step-editors/match-columns-editor.tsx
+msgctxt "kOBYzU"
+msgid "Add pair"
+msgstr ""
+
+#: src/app/[lang]/(org)/org/[organizationSlug]/lessons/[lessonId]/step-editors/multiple-choice-editor.tsx
+msgctxt "PdjSGH"
+msgid "Option {number, number}"
+msgstr ""
+
+#: src/app/[lang]/(org)/org/[organizationSlug]/lessons/[lessonId]/step-editors/multiple-choice-editor.tsx
+msgctxt "-KWDmz"
+msgid "Remove option {number, number}"
+msgstr ""
+
+#: src/app/[lang]/(org)/org/[organizationSlug]/lessons/[lessonId]/step-editors/multiple-choice-editor.tsx
+msgctxt "DwjT1H"
+msgid "Answer"
+msgstr ""
+
+#: src/app/[lang]/(org)/org/[organizationSlug]/lessons/[lessonId]/step-editors/multiple-choice-editor.tsx
+msgctxt "mhiTW7"
+msgid "Correct answer"
+msgstr ""
+
+#: src/app/[lang]/(org)/org/[organizationSlug]/lessons/[lessonId]/step-editors/multiple-choice-editor.tsx
+msgctxt "V2qutI"
+msgid "Context"
+msgstr ""
+
+#: src/app/[lang]/(org)/org/[organizationSlug]/lessons/[lessonId]/step-editors/multiple-choice-editor.tsx
+msgctxt "rAMgEh"
+msgid "Add option"
+msgstr ""
+
+#: src/app/[lang]/(org)/org/[organizationSlug]/lessons/[lessonId]/step-editors/sort-order-editor.tsx
+msgctxt "REHZQc"
+msgid "List them in the correct order; learners see them shuffled."
+msgstr ""
+
+#: src/app/[lang]/(org)/org/[organizationSlug]/lessons/[lessonId]/step-editors/sort-order-editor.tsx
+msgctxt "yNmV_R"
+msgid "Items"
+msgstr ""
+
+#: src/app/[lang]/(org)/org/[organizationSlug]/lessons/[lessonId]/step-editors/static-editor.tsx
+msgctxt "9a9-ww"
+msgid "Title"
+msgstr ""
+
+#: src/app/[lang]/(org)/org/[organizationSlug]/lessons/[lessonId]/step-editors/static-editor.tsx
+msgctxt "aA8bDw"
+msgid "Text"
+msgstr ""
+
+#: src/app/[lang]/(org)/org/[organizationSlug]/lessons/[lessonId]/step-editors/step-editor-form.tsx
+msgctxt "RvCQKB"
+msgid "Draft saved. Your team keeps seeing the approved version."
+msgstr ""
+
+#: src/app/[lang]/(org)/org/[organizationSlug]/lessons/[lessonId]/step-editors/step-editor-form.tsx
+msgctxt "JYBoRL"
+msgid "Fill in every field, mark a correct answer and add one answer per blank."
+msgstr ""
+
+#: src/app/[lang]/(org)/org/[organizationSlug]/lessons/[lessonId]/step-editors/step-editor-form.tsx
+msgctxt "9yooU5"
+msgid "Could not save the draft."
+msgstr ""
+
+#: src/app/[lang]/(org)/org/[organizationSlug]/lessons/[lessonId]/step-editors/step-editor-form.tsx
+msgctxt "R2zJFp"
+msgid "Save draft"
+msgstr ""
+
+#: src/app/[lang]/(org)/org/[organizationSlug]/lessons/[lessonId]/step-editors/step-editor-form.tsx
+msgctxt "7aUocG"
+msgid "Discard draft"
+msgstr ""
+
+#: src/app/[lang]/(org)/org/[organizationSlug]/lessons/[lessonId]/step-editors/step-editor.tsx
+msgctxt "NPCH1n"
+msgid "This kind of step cannot be edited here."
+msgstr ""
+
+#: src/app/[lang]/(org)/org/[organizationSlug]/lessons/[lessonId]/step-editors/string-list-field.tsx
+msgctxt "SJF2u0"
+msgid "{label} {number, number}"
+msgstr ""
+
+#: src/app/[lang]/(org)/org/[organizationSlug]/lessons/[lessonId]/step-editors/string-list-field.tsx
+msgctxt "wmFdws"
+msgid "Move up"
+msgstr ""
+
+#: src/app/[lang]/(org)/org/[organizationSlug]/lessons/[lessonId]/step-editors/string-list-field.tsx
+msgctxt "H_r5m6"
+msgid "Move down"
+msgstr ""
+
+#: src/app/[lang]/(org)/org/[organizationSlug]/lessons/[lessonId]/step-editors/string-list-field.tsx
+msgctxt "rJKyns"
+msgid "Remove {label} {number, number}"
+msgstr ""
+
+#: src/app/[lang]/(org)/org/[organizationSlug]/lessons/[lessonId]/step-editors/string-list-field.tsx
+msgctxt "2_2yg-"
+msgid "Add"
 msgstr ""
 
 #: src/app/[lang]/(org)/org/[organizationSlug]/member-tags-form.tsx
@@ -3083,11 +3381,6 @@ msgid "Did you like this content?"
 msgstr "As-tu aimé ce contenu ?"
 
 #: src/components/feedback/feedback-dialog.tsx
-msgctxt "Ejhdi4"
-msgid "Feedback"
-msgstr "Avis"
-
-#: src/components/feedback/feedback-dialog.tsx
 msgctxt "eUzs3M"
 msgid "Send feedback, questions, or suggestions to us. Fill in the form below or email us directly at hello@zoonk.com."
 msgstr "Envoie-nous tes avis, questions ou suggestions. Remplis le formulaire ci-dessous ou écris-nous directement à hello@zoonk.com."
@@ -3291,11 +3584,6 @@ msgstr "Alphabet"
 msgctxt "4TTYDR"
 msgid "Custom lesson"
 msgstr "Leçon personnalisée"
-
-#: src/lib/lessons.ts
-msgctxt "E1bF_X"
-msgid "Explanation"
-msgstr "Explication"
 
 #: src/lib/lessons.ts
 msgctxt "QzTY8x"

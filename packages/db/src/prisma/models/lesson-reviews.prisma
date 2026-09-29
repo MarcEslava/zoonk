@@ -1,0 +1,42 @@
+/// A pending edit to one step. Learners keep seeing `Step.content` until an
+/// approval copies the draft over it, so an unreviewed change never reaches
+/// them. Regenerating a lesson replaces its steps and drops their drafts.
+model StepDraft {
+  id         String   @id @default(dbgenerated("uuidv7()")) @db.Uuid
+  stepId     String   @unique @map("step_id") @db.Uuid
+  step       Step     @relation(fields: [stepId], references: [id], onDelete: Cascade)
+  content    Json
+  editedById String   @map("edited_by_id") @db.Uuid
+  editedBy   User     @relation(fields: [editedById], references: [id], onDelete: Cascade)
+  createdAt  DateTime @default(now()) @map("created_at")
+  updatedAt  DateTime @default(now()) @updatedAt @map("updated_at")
+
+  @@index([editedById])
+  @@map("step_drafts")
+}
+
+enum LessonReviewAction {
+  stepEdited     @map("step_edited")
+  draftDiscarded @map("draft_discarded")
+  approved
+}
+
+/// A lesson's review history, one row per edit, discard or approval. Rows are
+/// never updated. `stepId` has no relation on purpose: the history has to
+/// outlive steps that a regeneration replaces. An approval stores the exact
+/// content it made visible, so the record shows what was approved and by whom.
+model LessonReviewEvent {
+  id        String             @id @default(dbgenerated("uuidv7()")) @db.Uuid
+  lessonId  String             @map("lesson_id") @db.Uuid
+  lesson    Lesson             @relation(fields: [lessonId], references: [id], onDelete: Cascade)
+  actorId   String?            @map("actor_id") @db.Uuid
+  actor     User?              @relation(fields: [actorId], references: [id], onDelete: SetNull)
+  action    LessonReviewAction
+  stepId    String?            @map("step_id") @db.Uuid
+  content   Json?
+  createdAt DateTime           @default(now()) @map("created_at")
+
+  @@index([lessonId, createdAt])
+  @@index([actorId])
+  @@map("lesson_review_events")
+}

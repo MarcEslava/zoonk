@@ -23,6 +23,7 @@ model Lesson {
   sourceWords      ChapterWord[]
   sourceSentences  ChapterSentence[]
   questionThreads  LessonQuestionThread[]
+  reviewEvents     LessonReviewEvent[]
 
   @@unique([chapterId, slug], name: "chapterLessonSlug")
   @@index([organizationId, normalizedTitle])
@@ -51,6 +52,7 @@ model Step {
   updatedAt         DateTime         @default(now()) @updatedAt @map("updated_at")
   attempts          StepAttempt[]
   questions         LessonQuestion[]
+  draft             StepDraft?
 
   @@unique([lessonId, position], name: "lessonStepPosition")
   @@index([lessonId, kind, position])

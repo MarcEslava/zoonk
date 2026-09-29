@@ -26,6 +26,13 @@ async function OrganizationNav({
       >
         {t("Assignments")}
       </Link>
+      <Link
+        className={buttonVariants({ size: "sm", variant: "outline" })}
+        href={`/org/${organizationSlug}/courses` as const}
+        prefetch
+      >
+        {t("Courses")}
+      </Link>
     </nav>
   );
 }

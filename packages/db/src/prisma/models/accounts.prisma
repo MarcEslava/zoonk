@@ -35,6 +35,8 @@ model User {
   pushSubscriptions  PushSubscription[]
   reminderDeliveries ReminderDelivery[]
   assignmentRecipients AssignmentRecipient[]
+  stepDrafts         StepDraft[]
+  lessonReviewEvents LessonReviewEvent[]
 
   @@unique([email])
   @@unique([username])

@@ -99,4 +99,32 @@ test.describe("Organization Assignments", () => {
 
     await context.close();
   });
+
+  test("an owner turns on weekday reminders at an hour of their choosing", async ({ browser }) => {
+    const { organization, owner } = await assignableFixture();
+
+    const context = await browser.newContext({ storageState: owner.storageState });
+    const page = await context.newPage();
+
+    await page.goto(`/org/${organization.slug}/assignments`);
+
+    const form = page.getByRole("form", { name: /^reminders$/iu });
+
+    await form.getByRole("checkbox", { name: /send weekday reminders/iu }).check();
+    await form.getByLabel(/^hour$/iu).selectOption("11");
+    await form.getByLabel(/time zone/iu).selectOption("Europe/Madrid");
+    await form.getByRole("button", { name: /save reminders/iu }).click();
+
+    await expect(form.getByText(/reminders saved/iu)).toBeVisible();
+
+    await expect(
+      prisma.organizationReminderSchedule.findUnique({
+        where: { organizationId: organization.id },
+      }),
+    ).resolves.toMatchObject({ hour: 11, timeZone: "Europe/Madrid" });
+
+    await expect(form.getByLabel(/^hour$/iu).locator("option")).toHaveCount(12);
+
+    await context.close();
+  });
 });

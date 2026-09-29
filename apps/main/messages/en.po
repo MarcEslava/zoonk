@@ -1240,6 +1240,56 @@ msgctxt "3t_eqa"
 msgid "Require a course from part of your team, with a daily target and a deadline."
 msgstr "Require a course from part of your team, with a daily target and a deadline."
 
+#: src/app/[lang]/(org)/org/[organizationSlug]/assignments/reminder-schedule-form.tsx
+msgctxt "ev0EQj"
+msgid "Could not save the reminders."
+msgstr "Could not save the reminders."
+
+#: src/app/[lang]/(org)/org/[organizationSlug]/assignments/reminder-schedule-form.tsx
+msgctxt "bRZbOq"
+msgid "Choose an hour inside the working day and a valid time zone."
+msgstr "Choose an hour inside the working day and a valid time zone."
+
+#: src/app/[lang]/(org)/org/[organizationSlug]/assignments/reminder-schedule-form.tsx
+msgctxt "-vBFap"
+msgid "Reminders"
+msgstr "Reminders"
+
+#: src/app/[lang]/(org)/org/[organizationSlug]/assignments/reminder-schedule-form.tsx
+msgctxt "WDRYsS"
+msgid "Learners who turned reminders on get one on weekdays, only if they have not studied yet that day. Never at weekends or outside the hour you choose."
+msgstr "Learners who turned reminders on get one on weekdays, only if they have not studied yet that day. Never at weekends or outside the hour you choose."
+
+#: src/app/[lang]/(org)/org/[organizationSlug]/assignments/reminder-schedule-form.tsx
+msgctxt "Ll-Ltm"
+msgid "Send weekday reminders"
+msgstr "Send weekday reminders"
+
+#: src/app/[lang]/(org)/org/[organizationSlug]/assignments/reminder-schedule-form.tsx
+msgctxt "b11WUZ"
+msgid "Hour"
+msgstr "Hour"
+
+#: src/app/[lang]/(org)/org/[organizationSlug]/assignments/reminder-schedule-form.tsx
+msgctxt "68_nCr"
+msgid "Only hours inside the working day are offered."
+msgstr "Only hours inside the working day are offered."
+
+#: src/app/[lang]/(org)/org/[organizationSlug]/assignments/reminder-schedule-form.tsx
+msgctxt "IcUakl"
+msgid "Time zone"
+msgstr "Time zone"
+
+#: src/app/[lang]/(org)/org/[organizationSlug]/assignments/reminder-schedule-form.tsx
+msgctxt "e07QTc"
+msgid "Reminders saved."
+msgstr "Reminders saved."
+
+#: src/app/[lang]/(org)/org/[organizationSlug]/assignments/reminder-schedule-form.tsx
+msgctxt "WuTCK7"
+msgid "Save reminders"
+msgstr "Save reminders"
+
 #: src/app/[lang]/(org)/org/[organizationSlug]/create-tag-form.tsx
 msgctxt "pSqa--"
 msgid "That segment already exists."

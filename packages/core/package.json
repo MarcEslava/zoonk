@@ -76,6 +76,7 @@
     "./organizations/list-assignments": "./src/organizations/list-organization-assignments.ts",
     "./organizations/list-members": "./src/organizations/list-organization-members.ts",
     "./organizations/list-tags": "./src/organizations/list-organization-tags.ts",
+    "./organizations/reminder-schedule": "./src/organizations/reminder-schedule.ts",
     "./organizations/set-member-tags": "./src/organizations/set-member-tags.ts",
     "./player/commands/get-next-lesson-preload-target": "./src/player/commands/get-next-lesson-preload-target.ts",
     "./player/commands/start-lesson": "./src/player/commands/start-lesson.ts",

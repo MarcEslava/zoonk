@@ -3,6 +3,11 @@ import { listOrganizationAssignments } from "@zoonk/core/organizations/list-assi
 import { listOrganizationMembers } from "@zoonk/core/organizations/list-members";
 import { listOrganizationTags } from "@zoonk/core/organizations/list-tags";
 import {
+  REMINDER_EARLIEST_HOUR,
+  REMINDER_LATEST_HOUR,
+  getOrganizationReminderSchedule,
+} from "@zoonk/core/organizations/reminder-schedule";
+import {
   Container,
   ContainerBody,
   ContainerDescription,
@@ -26,8 +31,14 @@ import { notFound } from "next/navigation";
 import { Suspense } from "react";
 import { findOrganization } from "../_utils/find-organization";
 import { AssignCourseForm } from "./assign-course-form";
+import { ReminderScheduleForm } from "./reminder-schedule-form";
 
 type AssignmentRow = NonNullable<Awaited<ReturnType<typeof listOrganizationAssignments>>>[number];
+
+const REMINDER_HOURS = Array.from(
+  { length: REMINDER_LATEST_HOUR - REMINDER_EARLIEST_HOUR + 1 },
+  (_, index) => REMINDER_EARLIEST_HOUR + index,
+);
 
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getExtracted();
@@ -90,11 +101,12 @@ async function AssignmentsContent({
   const organizationId = membership.organization.id;
   const t = await getExtracted();
 
-  const [courses, members, tags, assignments] = await Promise.all([
+  const [courses, members, tags, assignments, reminders] = await Promise.all([
     listAssignableCourses({ organizationId }),
     listOrganizationMembers({ organizationId }),
     listOrganizationTags({ organizationId }),
     listOrganizationAssignments({ organizationId }),
+    getOrganizationReminderSchedule({ organizationId }),
   ]);
 
   if (!courses || !members || !tags || !assignments) {
@@ -119,6 +131,15 @@ async function AssignmentsContent({
       )}
 
       <AssignmentList assignments={assignments} />
+
+      {reminders && (
+        <ReminderScheduleForm
+          hours={REMINDER_HOURS}
+          organizationId={organizationId}
+          schedule={reminders.schedule}
+          timeZones={Intl.supportedValuesOf("timeZone")}
+        />
+      )}
     </div>
   );
 }

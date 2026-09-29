@@ -1240,6 +1240,56 @@ msgctxt "3t_eqa"
 msgid "Require a course from part of your team, with a daily target and a deadline."
 msgstr ""
 
+#: src/app/[lang]/(org)/org/[organizationSlug]/assignments/reminder-schedule-form.tsx
+msgctxt "ev0EQj"
+msgid "Could not save the reminders."
+msgstr ""
+
+#: src/app/[lang]/(org)/org/[organizationSlug]/assignments/reminder-schedule-form.tsx
+msgctxt "bRZbOq"
+msgid "Choose an hour inside the working day and a valid time zone."
+msgstr ""
+
+#: src/app/[lang]/(org)/org/[organizationSlug]/assignments/reminder-schedule-form.tsx
+msgctxt "-vBFap"
+msgid "Reminders"
+msgstr ""
+
+#: src/app/[lang]/(org)/org/[organizationSlug]/assignments/reminder-schedule-form.tsx
+msgctxt "WDRYsS"
+msgid "Learners who turned reminders on get one on weekdays, only if they have not studied yet that day. Never at weekends or outside the hour you choose."
+msgstr ""
+
+#: src/app/[lang]/(org)/org/[organizationSlug]/assignments/reminder-schedule-form.tsx
+msgctxt "Ll-Ltm"
+msgid "Send weekday reminders"
+msgstr ""
+
+#: src/app/[lang]/(org)/org/[organizationSlug]/assignments/reminder-schedule-form.tsx
+msgctxt "b11WUZ"
+msgid "Hour"
+msgstr ""
+
+#: src/app/[lang]/(org)/org/[organizationSlug]/assignments/reminder-schedule-form.tsx
+msgctxt "68_nCr"
+msgid "Only hours inside the working day are offered."
+msgstr ""
+
+#: src/app/[lang]/(org)/org/[organizationSlug]/assignments/reminder-schedule-form.tsx
+msgctxt "IcUakl"
+msgid "Time zone"
+msgstr ""
+
+#: src/app/[lang]/(org)/org/[organizationSlug]/assignments/reminder-schedule-form.tsx
+msgctxt "e07QTc"
+msgid "Reminders saved."
+msgstr ""
+
+#: src/app/[lang]/(org)/org/[organizationSlug]/assignments/reminder-schedule-form.tsx
+msgctxt "WuTCK7"
+msgid "Save reminders"
+msgstr ""
+
 #: src/app/[lang]/(org)/org/[organizationSlug]/create-tag-form.tsx
 msgctxt "pSqa--"
 msgid "That segment already exists."

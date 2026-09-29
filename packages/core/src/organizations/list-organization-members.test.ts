@@ -38,7 +38,9 @@ describe(listOrganizationMembers, () => {
 
     mockSession(member.userId);
 
-    await expect(listOrganizationMembers({ organizationId: organization.id })).resolves.toBeNull();
+    await expect(
+      listOrganizationMembers({ organizationId: organization.id }),
+    ).resolves.toStrictEqual({ status: "forbidden" });
   });
 
   it("lists the team with the segments each person carries", async () => {
@@ -46,11 +48,12 @@ describe(listOrganizationMembers, () => {
 
     mockSession(owner.id);
 
-    const members = await listOrganizationMembers({ organizationId: organization.id });
+    const result = await listOrganizationMembers({ organizationId: organization.id });
+    const members = result.status === "ready" ? result.members : [];
 
     expect(members).toHaveLength(2);
 
-    const learnerRow = members?.find((row) => row.id === learnerMember.id);
+    const learnerRow = members.find((row) => row.id === learnerMember.id);
 
     expect(learnerRow?.tags.map((row) => row.name)).toStrictEqual([tag.name]);
   });
@@ -65,7 +68,9 @@ describe(listOrganizationTags, () => {
 
     mockSession(member.userId);
 
-    await expect(listOrganizationTags({ organizationId: organization.id })).resolves.toBeNull();
+    await expect(listOrganizationTags({ organizationId: organization.id })).resolves.toStrictEqual({
+      status: "forbidden",
+    });
   });
 
   it("lists the organization's own tags", async () => {
@@ -73,8 +78,8 @@ describe(listOrganizationTags, () => {
 
     mockSession(owner.id);
 
-    const tags = await listOrganizationTags({ organizationId: organization.id });
+    const result = await listOrganizationTags({ organizationId: organization.id });
 
-    expect(tags?.map((row) => row.name)).toStrictEqual([tag.name]);
+    expect(result).toMatchObject({ status: "ready", tags: [{ name: tag.name }] });
   });
 });

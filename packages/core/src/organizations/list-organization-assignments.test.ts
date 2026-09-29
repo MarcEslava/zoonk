@@ -42,19 +42,21 @@ describe(listAssignableCourses, () => {
 
     mockSession(owner.id);
 
-    const courses = await listAssignableCourses({ organizationId: organization.id });
-    const ids = courses?.map((course) => course.id);
+    const result = await listAssignableCourses({ organizationId: organization.id });
+    const ids = result.status === "ready" ? result.courses.map((course) => course.id) : [];
 
     expect(ids).toContain(published.id);
     expect(ids).not.toContain(draft.id);
   });
 
-  it("returns null for someone who cannot assign", async () => {
+  it("refuses someone who cannot assign", async () => {
     const { organization, teammate } = await organizationFixtureWithCourses();
 
     mockSession(teammate.id);
 
-    await expect(listAssignableCourses({ organizationId: organization.id })).resolves.toBeNull();
+    await expect(listAssignableCourses({ organizationId: organization.id })).resolves.toStrictEqual(
+      { status: "forbidden" },
+    );
   });
 });
 
@@ -73,11 +75,12 @@ describe(listOrganizationAssignments, () => {
       targets: { tagIds: [tag.id] },
     });
 
-    const assignments = await listOrganizationAssignments({ organizationId: organization.id });
+    const result = await listOrganizationAssignments({ organizationId: organization.id });
+    const assignments = result.status === "ready" ? result.assignments : [];
 
     expect(assignments).toHaveLength(1);
 
-    expect(assignments?.[0]).toMatchObject({
+    expect(assignments[0]).toMatchObject({
       course: { id: published.id },
       minDailySeconds: 180,
       openRecipientCount: 1,
@@ -85,13 +88,13 @@ describe(listOrganizationAssignments, () => {
     });
   });
 
-  it("returns null for someone who cannot read assignments", async () => {
+  it("refuses someone who cannot read assignments", async () => {
     const { organization, teammate } = await organizationFixtureWithCourses();
 
     mockSession(teammate.id);
 
     await expect(
       listOrganizationAssignments({ organizationId: organization.id }),
-    ).resolves.toBeNull();
+    ).resolves.toStrictEqual({ status: "forbidden" });
   });
 });

@@ -4,8 +4,8 @@ import { getOrganizationAccess } from "./get-organization-access";
 
 /**
  * Lists what an organization currently requires, with who it was asked of and
- * how many people it reaches today. Returns null when the caller may not read
- * assignments.
+ * how many people it reaches today. Returns the access outcome when the caller
+ * may not read assignments.
  */
 export async function listOrganizationAssignments({ organizationId }: { organizationId: string }) {
   const access = await getOrganizationAccess({
@@ -14,7 +14,7 @@ export async function listOrganizationAssignments({ organizationId }: { organiza
   });
 
   if (access.status !== "ready") {
-    return null;
+    return access;
   }
 
   const assignments = await prisma.assignment.findMany({
@@ -27,13 +27,16 @@ export async function listOrganizationAssignments({ organizationId }: { organiza
     where: { organizationId },
   });
 
-  return assignments.map((assignment) => ({
-    course: assignment.course,
-    dueAt: assignment.dueAt,
-    id: assignment.id,
-    minDailySeconds: assignment.minDailySeconds,
-    openRecipientCount: assignment._count.recipients,
-    targetMembers: assignment.targets.flatMap((target) => target.member?.user.name ?? []),
-    targetTags: assignment.targets.flatMap((target) => target.tag?.name ?? []),
-  }));
+  return {
+    assignments: assignments.map((assignment) => ({
+      course: assignment.course,
+      dueAt: assignment.dueAt,
+      id: assignment.id,
+      minDailySeconds: assignment.minDailySeconds,
+      openRecipientCount: assignment._count.recipients,
+      targetMembers: assignment.targets.flatMap((target) => target.member?.user.name ?? []),
+      targetTags: assignment.targets.flatMap((target) => target.tag?.name ?? []),
+    })),
+    status: "ready" as const,
+  };
 }

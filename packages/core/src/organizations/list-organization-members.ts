@@ -6,8 +6,9 @@ import { getOrganizationAccess } from "./get-organization-access";
  * Lists one organization's team with the segments each person carries, for the
  * screen that moves people between segments.
  *
- * Returns null rather than an empty list when the caller may not see the team,
- * so a delivery app can tell "no members" apart from "not your organization".
+ * Returns the access outcome rather than an empty list when the caller may not
+ * see the team, so a delivery app can tell "no members" apart from "not your
+ * organization" and a missing session apart from a missing permission.
  */
 export async function listOrganizationMembers({ organizationId }: { organizationId: string }) {
   const access = await getOrganizationAccess({
@@ -16,7 +17,7 @@ export async function listOrganizationMembers({ organizationId }: { organization
   });
 
   if (access.status !== "ready") {
-    return null;
+    return access;
   }
 
   const members = await prisma.member.findMany({
@@ -25,10 +26,13 @@ export async function listOrganizationMembers({ organizationId }: { organization
     where: { organizationId },
   });
 
-  return members.map((member) => ({
-    id: member.id,
-    name: member.user.name,
-    role: member.role,
-    tags: member.tags.map((link) => link.tag),
-  }));
+  return {
+    members: members.map((member) => ({
+      id: member.id,
+      name: member.user.name,
+      role: member.role,
+      tags: member.tags.map((link) => link.tag),
+    })),
+    status: "ready" as const,
+  };
 }

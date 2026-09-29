@@ -2,11 +2,11 @@ import { listAssignableCourses } from "@zoonk/core/organizations/list-assignable
 import { listOrganizationAssignments } from "@zoonk/core/organizations/list-assignments";
 import { listOrganizationMembers } from "@zoonk/core/organizations/list-members";
 import { listOrganizationTags } from "@zoonk/core/organizations/list-tags";
+import { getOrganizationReminderSchedule } from "@zoonk/core/organizations/reminder-schedule";
 import {
   REMINDER_EARLIEST_HOUR,
   REMINDER_LATEST_HOUR,
-  getOrganizationReminderSchedule,
-} from "@zoonk/core/organizations/reminder-schedule";
+} from "@zoonk/core/organizations/reminder-schedule-contract";
 import {
   Container,
   ContainerBody,
@@ -33,7 +33,10 @@ import { findOrganization } from "../_utils/find-organization";
 import { AssignCourseForm } from "./assign-course-form";
 import { ReminderScheduleForm } from "./reminder-schedule-form";
 
-type AssignmentRow = NonNullable<Awaited<ReturnType<typeof listOrganizationAssignments>>>[number];
+type AssignmentRow = Extract<
+  Awaited<ReturnType<typeof listOrganizationAssignments>>,
+  { status: "ready" }
+>["assignments"][number];
 
 const REMINDER_HOURS = Array.from(
   { length: REMINDER_LATEST_HOUR - REMINDER_EARLIEST_HOUR + 1 },
@@ -101,7 +104,7 @@ async function AssignmentsContent({
   const organizationId = membership.organization.id;
   const t = await getExtracted();
 
-  const [courses, members, tags, assignments, reminders] = await Promise.all([
+  const [assignable, team, vocabulary, current, reminders] = await Promise.all([
     listAssignableCourses({ organizationId }),
     listOrganizationMembers({ organizationId }),
     listOrganizationTags({ organizationId }),
@@ -109,9 +112,18 @@ async function AssignmentsContent({
     getOrganizationReminderSchedule({ organizationId }),
   ]);
 
-  if (!courses || !members || !tags || !assignments) {
+  if (
+    assignable.status !== "ready" ||
+    team.status !== "ready" ||
+    vocabulary.status !== "ready" ||
+    current.status !== "ready"
+  ) {
     notFound();
   }
+
+  const { courses } = assignable;
+  const { members } = team;
+  const { tags } = vocabulary;
 
   return (
     <div className="flex flex-col gap-10">
@@ -130,9 +142,9 @@ async function AssignmentsContent({
         />
       )}
 
-      <AssignmentList assignments={assignments} />
+      <AssignmentList assignments={current.assignments} />
 
-      {reminders && (
+      {reminders.status === "ready" && (
         <ReminderScheduleForm
           hours={REMINDER_HOURS}
           organizationId={organizationId}

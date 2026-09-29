@@ -43,14 +43,17 @@ async function TeamContent({
   const organizationId = membership.organization.id;
   const t = await getExtracted();
 
-  const [members, tags] = await Promise.all([
+  const [team, vocabulary] = await Promise.all([
     listOrganizationMembers({ organizationId }),
     listOrganizationTags({ organizationId }),
   ]);
 
-  if (!members || !tags) {
+  if (team.status !== "ready" || vocabulary.status !== "ready") {
     notFound();
   }
+
+  const { members } = team;
+  const { tags } = vocabulary;
 
   return (
     <div className="flex max-w-3xl flex-col gap-8">

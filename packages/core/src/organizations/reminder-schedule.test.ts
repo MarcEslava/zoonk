@@ -22,7 +22,7 @@ async function signedInAs(role: string) {
   return { organizationId: organization.id };
 }
 
-const MADRID_AT_TEN = { hour: 10, schedule: "on" as const, timeZone: "Europe/Madrid" };
+const MADRID_AT_TEN = { hour: 10, timeZone: "Europe/Madrid" };
 
 describe(setOrganizationReminderSchedule, () => {
   beforeEach(() => mockSession(null));
@@ -31,14 +31,14 @@ describe(setOrganizationReminderSchedule, () => {
     const { organizationId } = await signedInAs("member");
 
     await expect(
-      setOrganizationReminderSchedule({ ...MADRID_AT_TEN, organizationId }),
+      setOrganizationReminderSchedule({ organizationId, schedule: MADRID_AT_TEN }),
     ).resolves.toStrictEqual({ status: "forbidden" });
   });
 
   it("lets an admin choose a weekday hour in the organization's time zone", async () => {
     const { organizationId } = await signedInAs("admin");
 
-    await setOrganizationReminderSchedule({ ...MADRID_AT_TEN, organizationId });
+    await setOrganizationReminderSchedule({ organizationId, schedule: MADRID_AT_TEN });
 
     await expect(getOrganizationReminderSchedule({ organizationId })).resolves.toMatchObject({
       schedule: { hour: 10, timeZone: "Europe/Madrid" },
@@ -49,7 +49,7 @@ describe(setOrganizationReminderSchedule, () => {
     const { organizationId } = await signedInAs("owner");
 
     await expect(
-      setOrganizationReminderSchedule({ ...MADRID_AT_TEN, hour: 22, organizationId }),
+      setOrganizationReminderSchedule({ organizationId, schedule: { ...MADRID_AT_TEN, hour: 22 } }),
     ).resolves.toStrictEqual({ status: "invalidSchedule" });
   });
 
@@ -57,15 +57,18 @@ describe(setOrganizationReminderSchedule, () => {
     const { organizationId } = await signedInAs("owner");
 
     await expect(
-      setOrganizationReminderSchedule({ ...MADRID_AT_TEN, organizationId, timeZone: "Mars/Base" }),
+      setOrganizationReminderSchedule({
+        organizationId,
+        schedule: { ...MADRID_AT_TEN, timeZone: "Mars/Base" },
+      }),
     ).resolves.toStrictEqual({ status: "invalidSchedule" });
   });
 
   it("removes the schedule when reminders are turned off", async () => {
     const { organizationId } = await signedInAs("owner");
 
-    await setOrganizationReminderSchedule({ ...MADRID_AT_TEN, organizationId });
-    await setOrganizationReminderSchedule({ ...MADRID_AT_TEN, organizationId, schedule: "off" });
+    await setOrganizationReminderSchedule({ organizationId, schedule: MADRID_AT_TEN });
+    await setOrganizationReminderSchedule({ organizationId, schedule: null });
 
     await expect(
       prisma.organizationReminderSchedule.findUnique({ where: { organizationId } }),

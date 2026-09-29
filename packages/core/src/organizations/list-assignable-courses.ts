@@ -7,8 +7,9 @@ import { getOrganizationAccess } from "./get-organization-access";
  *
  * Only the organization's own published curriculum is offered. Public catalog
  * courses are assignable too, but the catalog is far too large for a picker, so
- * choosing one belongs to a search flow rather than to this list. Returns null
- * when the caller may not assign, so a page can tell that apart from no courses.
+ * choosing one belongs to a search flow rather than to this list. Returns the
+ * access outcome when the caller may not assign, so a page can tell that apart
+ * from no courses.
  */
 export async function listAssignableCourses({ organizationId }: { organizationId: string }) {
   const access = await getOrganizationAccess({
@@ -17,11 +18,13 @@ export async function listAssignableCourses({ organizationId }: { organizationId
   });
 
   if (access.status !== "ready") {
-    return null;
+    return access;
   }
 
-  return prisma.course.findMany({
+  const courses = await prisma.course.findMany({
     orderBy: { title: "asc" },
     where: { isPublished: true, organizationId },
   });
+
+  return { courses, status: "ready" as const };
 }

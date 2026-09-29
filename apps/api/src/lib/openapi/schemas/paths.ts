@@ -19,3 +19,11 @@ export const lessonQuestionPathParamsSchema = z
 export const generationPathParamsSchema = z
   .object({ generationId: z.string().trim().min(1).meta({ description: "Generation ID" }) })
   .meta({ id: "GenerationPathParams" });
+
+export const organizationPathParamsSchema = z
+  .object({ organizationId: z.uuid().meta({ description: "Organization ID" }) })
+  .meta({ id: "OrganizationPathParams" });
+
+export const organizationMemberPathParamsSchema = z
+  .object({ memberId: z.uuid().meta({ description: "Organization member ID" }) })
+  .meta({ id: "OrganizationMemberPathParams" });

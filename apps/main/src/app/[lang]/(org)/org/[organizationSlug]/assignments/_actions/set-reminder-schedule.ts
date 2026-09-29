@@ -26,10 +26,14 @@ export async function setReminderScheduleAction(
   }
 
   const result = await setOrganizationReminderSchedule({
-    hour: Number(parseFormField(formData, "hour")),
     organizationId,
-    schedule: formData.get("enabled") === null ? "off" : "on",
-    timeZone: parseFormField(formData, "timeZone") ?? "",
+    schedule:
+      formData.get("enabled") === null
+        ? null
+        : {
+            hour: Number(parseFormField(formData, "hour")),
+            timeZone: parseFormField(formData, "timeZone") ?? "",
+          },
   });
 
   if (result.status === "invalidSchedule") {

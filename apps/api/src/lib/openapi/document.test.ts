@@ -59,6 +59,56 @@ const CANONICAL_OPERATIONS = [
   { method: "get", operationId: "listCurrentUserOrganizations", path: "/me/organizations" },
   { method: "get", operationId: "listCurrentUserAssignments", path: "/me/assignments" },
   { method: "get", operationId: "getCurrentUserHabit", path: "/me/habit" },
+  {
+    method: "get",
+    operationId: "listOrganizationMembers",
+    path: "/organizations/{organizationId}/members",
+  },
+  {
+    method: "put",
+    operationId: "setOrganizationMemberTags",
+    path: "/organization-members/{memberId}/tags",
+  },
+  {
+    method: "get",
+    operationId: "listOrganizationTags",
+    path: "/organizations/{organizationId}/tags",
+  },
+  {
+    method: "post",
+    operationId: "createOrganizationTag",
+    path: "/organizations/{organizationId}/tags",
+  },
+  {
+    method: "get",
+    operationId: "listAssignableCourses",
+    path: "/organizations/{organizationId}/assignable-courses",
+  },
+  {
+    method: "get",
+    operationId: "listOrganizationAssignments",
+    path: "/organizations/{organizationId}/assignments",
+  },
+  {
+    method: "post",
+    operationId: "createOrganizationAssignment",
+    path: "/organizations/{organizationId}/assignments",
+  },
+  {
+    method: "get",
+    operationId: "getOrganizationReminderSchedule",
+    path: "/organizations/{organizationId}/reminder-schedule",
+  },
+  {
+    method: "put",
+    operationId: "setOrganizationReminderSchedule",
+    path: "/organizations/{organizationId}/reminder-schedule",
+  },
+  {
+    method: "delete",
+    operationId: "deleteOrganizationReminderSchedule",
+    path: "/organizations/{organizationId}/reminder-schedule",
+  },
   { method: "get", operationId: "getCurrentUserActivity", path: "/me/progress/activity" },
   { method: "get", operationId: "getCurrentUserEnergy", path: "/me/progress/energy" },
   { method: "get", operationId: "getCurrentUserLevel", path: "/me/progress/level" },
@@ -129,6 +179,7 @@ const pathItemContractSchema = z
     get: operationContractSchema.optional(),
     patch: operationContractSchema.optional(),
     post: operationContractSchema.optional(),
+    put: operationContractSchema.optional(),
   })
   .loose();
 

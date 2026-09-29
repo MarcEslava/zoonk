@@ -6,7 +6,7 @@ import { getContributionCalendarDateKey } from "@zoonk/utils/contribution-calend
  * leave pass without breaking anything, so the habit never pressures anyone to
  * study in time they are entitled to rest.
  */
-export const HABIT_WEEK_GOAL_DAYS = 3;
+const HABIT_WEEK_GOAL_DAYS = 3;
 
 /** How far back a streak can reach; also bounds the rows the query loads. */
 const HABIT_LOOKBACK_WEEKS = 52;

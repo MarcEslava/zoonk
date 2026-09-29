@@ -3,11 +3,11 @@ import { courseFixture } from "@zoonk/testing/fixtures/courses";
 import { organizationFixture, organizationMemberFixture } from "@zoonk/testing/fixtures/orgs";
 import { userFixture } from "@zoonk/testing/fixtures/users";
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import { mockSession } from "../_test-utils/mock-session";
-import { createAssignment } from "./create-assignment";
-import { reconcileAssignment } from "./reconcile-assignment";
+import { mockSession } from "../../_test-utils/mock-session";
+import { createAssignment } from "../create-assignment";
+import { reconcileAssignmentRecipients } from "./reconcile-recipients";
 
-vi.mock("../users/get-session", () => ({ getSession: vi.fn() }));
+vi.mock("../../users/get-session", () => ({ getSession: vi.fn() }));
 
 /** One organization with an owner, a course of its own and a segment tag. */
 async function assignmentFixture() {
@@ -46,29 +46,22 @@ async function addMember(organizationId: string) {
   return member;
 }
 
+/** Loads an assignment with its targets and reconciles it the way the capabilities do. */
+async function reconcile(assignmentId: string) {
+  const assignment = await prisma.assignment.findUniqueOrThrow({
+    include: { targets: true },
+    where: { id: assignmentId },
+  });
+
+  return reconcileAssignmentRecipients({ assignment });
+}
+
 function openPeriods(assignmentId: string) {
   return prisma.assignmentRecipient.findMany({ where: { assignmentId, removedAt: null } });
 }
 
-describe(reconcileAssignment, () => {
+describe(reconcileAssignmentRecipients, () => {
   beforeEach(() => mockSession(null));
-
-  it("requires permission to reconcile", async () => {
-    const { assignment, organization } = await assignmentFixture();
-    const outsider = await userFixture();
-
-    await organizationMemberFixture({
-      organizationId: organization.id,
-      role: "member",
-      userId: outsider.id,
-    });
-
-    mockSession(outsider.id);
-
-    await expect(reconcileAssignment({ assignmentId: assignment.id })).resolves.toStrictEqual({
-      status: "forbidden",
-    });
-  });
 
   it("applies a standing assignment to someone who joins the segment later", async () => {
     const { assignment, organization, owner, tag } = await assignmentFixture();
@@ -77,11 +70,7 @@ describe(reconcileAssignment, () => {
     await prisma.memberTagLink.create({ data: { memberId: joiner.id, tagId: tag.id } });
     mockSession(owner.id);
 
-    await expect(reconcileAssignment({ assignmentId: assignment.id })).resolves.toStrictEqual({
-      closed: 0,
-      opened: 1,
-      status: "reconciled",
-    });
+    await expect(reconcile(assignment.id)).resolves.toStrictEqual({ closed: 0, opened: 1 });
 
     const rows = await openPeriods(assignment.id);
 
@@ -97,15 +86,11 @@ describe(reconcileAssignment, () => {
     });
 
     mockSession(owner.id);
-    await reconcileAssignment({ assignmentId: assignment.id });
+    await reconcile(assignment.id);
 
     await prisma.memberTagLink.delete({ where: { id: link.id } });
 
-    await expect(reconcileAssignment({ assignmentId: assignment.id })).resolves.toStrictEqual({
-      closed: 1,
-      opened: 0,
-      status: "reconciled",
-    });
+    await expect(reconcile(assignment.id)).resolves.toStrictEqual({ closed: 1, opened: 0 });
 
     const closed = await prisma.assignmentRecipient.findFirst({
       where: { assignmentId: assignment.id, memberId: joiner.id },
@@ -123,18 +108,14 @@ describe(reconcileAssignment, () => {
     });
 
     mockSession(owner.id);
-    await reconcileAssignment({ assignmentId: assignment.id });
+    await reconcile(assignment.id);
 
     await prisma.memberTagLink.delete({ where: { id: link.id } });
-    await reconcileAssignment({ assignmentId: assignment.id });
+    await reconcile(assignment.id);
 
     await prisma.memberTagLink.create({ data: { memberId: joiner.id, tagId: tag.id } });
 
-    await expect(reconcileAssignment({ assignmentId: assignment.id })).resolves.toStrictEqual({
-      closed: 0,
-      opened: 1,
-      status: "reconciled",
-    });
+    await expect(reconcile(assignment.id)).resolves.toStrictEqual({ closed: 0, opened: 1 });
 
     const periods = await prisma.assignmentRecipient.findMany({
       where: { assignmentId: assignment.id, memberId: joiner.id },
@@ -148,7 +129,7 @@ describe(reconcileAssignment, () => {
     const { assignment, owner, ownerMember } = await assignmentFixture();
 
     mockSession(owner.id);
-    await reconcileAssignment({ assignmentId: assignment.id });
+    await reconcile(assignment.id);
 
     const rows = await openPeriods(assignment.id);
 
@@ -161,15 +142,11 @@ describe(reconcileAssignment, () => {
 
     await prisma.memberTagLink.create({ data: { memberId: joiner.id, tagId: tag.id } });
     mockSession(owner.id);
-    await reconcileAssignment({ assignmentId: assignment.id });
+    await reconcile(assignment.id);
 
     await prisma.member.delete({ where: { id: joiner.id } });
 
-    await expect(reconcileAssignment({ assignmentId: assignment.id })).resolves.toStrictEqual({
-      closed: 1,
-      opened: 0,
-      status: "reconciled",
-    });
+    await expect(reconcile(assignment.id)).resolves.toStrictEqual({ closed: 1, opened: 0 });
 
     const orphan = await prisma.assignmentRecipient.findFirst({
       where: { assignmentId: assignment.id, userId: joiner.userId },
@@ -183,12 +160,8 @@ describe(reconcileAssignment, () => {
     const { assignment, owner } = await assignmentFixture();
 
     mockSession(owner.id);
-    await reconcileAssignment({ assignmentId: assignment.id });
+    await reconcile(assignment.id);
 
-    await expect(reconcileAssignment({ assignmentId: assignment.id })).resolves.toStrictEqual({
-      closed: 0,
-      opened: 0,
-      status: "reconciled",
-    });
+    await expect(reconcile(assignment.id)).resolves.toStrictEqual({ closed: 0, opened: 0 });
   });
 });

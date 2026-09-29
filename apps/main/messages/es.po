@@ -689,6 +689,26 @@ msgctxt "Dr13kE"
 msgid "Continue where you left off"
 msgstr "Continúa donde lo dejaste"
 
+#: src/app/[lang]/(catalog)/my/reminder-toggle.tsx
+msgctxt "ynMs07"
+msgid "To get reminders on iPhone, add Zoonk to your home screen from the Share menu."
+msgstr ""
+
+#: src/app/[lang]/(catalog)/my/reminder-toggle.tsx
+msgctxt "sbva_n"
+msgid "Notifications are blocked for Zoonk. Allow them in your browser settings to get reminders."
+msgstr ""
+
+#: src/app/[lang]/(catalog)/my/reminder-toggle.tsx
+msgctxt "vRfO5-"
+msgid "Stop reminders"
+msgstr ""
+
+#: src/app/[lang]/(catalog)/my/reminder-toggle.tsx
+msgctxt "krbBns"
+msgid "Remind me on weekdays"
+msgstr ""
+
 #: src/app/[lang]/(catalog)/my/remove-course-menu.tsx
 msgctxt "zfUTRh"
 msgid "More options for {courseTitle}"

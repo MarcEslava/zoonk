@@ -4,9 +4,9 @@ import { organizationFixture, organizationMemberFixture } from "@zoonk/testing/f
 import { userFixture } from "@zoonk/testing/fixtures/users";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { mockSession } from "../_test-utils/mock-session";
+import { reconcileAssignmentRecipients } from "./_utils/reconcile-recipients";
 import { createAssignment } from "./create-assignment";
 import { listCurrentUserAssignments } from "./list-current-user-assignments";
-import { reconcileAssignment } from "./reconcile-assignment";
 
 vi.mock("../users/get-session", () => ({ getSession: vi.fn() }));
 
@@ -80,7 +80,12 @@ describe(listCurrentUserAssignments, () => {
 
     await prisma.member.delete({ where: { id: learnerMember.id } });
     mockSession(owner.id);
-    await reconcileAssignment({ assignmentId: assignment.id });
+    await reconcileAssignmentRecipients({
+      assignment: await prisma.assignment.findUniqueOrThrow({
+        include: { targets: true },
+        where: { id: assignment.id },
+      }),
+    });
 
     mockSession(learner.id);
 

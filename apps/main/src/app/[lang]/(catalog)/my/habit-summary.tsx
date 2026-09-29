@@ -1,5 +1,6 @@
 import { getCurrentUserHabit } from "@zoonk/core/progress/get-current-user-habit";
 import { getExtracted } from "next-intl/server";
+import { ReminderToggle } from "./reminder-toggle";
 
 /**
  * The learner's own view of their weekly habit. It states who can see it,
@@ -52,6 +53,8 @@ export async function HabitSummary() {
           "Weekends never count. Only you can see your habit; your organization only sees whether you complete the assigned training.",
         )}
       </p>
+
+      <ReminderToggle />
     </section>
   );
 }

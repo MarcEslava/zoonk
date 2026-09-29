@@ -1,4 +1,5 @@
 import { getContributionCalendarDateKey } from "@zoonk/utils/contribution-calendar";
+import { isWorkday } from "../../_utils/workday";
 
 /**
  * A week keeps the habit when the daily goal is met on at least this many
@@ -15,9 +16,8 @@ const DAY_MS = 86_400_000;
 const DAYS_PER_WEEK = 7;
 const WEEK_MS = DAYS_PER_WEEK * DAY_MS;
 
-/** `Date#getUTCDay` numbering, where Sunday is 0. */
+/** `Date#getUTCDay` numbering, where Sunday is 0; weeks start on Monday. */
 const MONDAY = 1;
-const FRIDAY = 5;
 
 type HabitDay = { date: Date; timeSpentSeconds: number };
 
@@ -30,16 +30,10 @@ export type WeeklyHabit = {
 };
 
 /**
- * Progress dates are the learner's local calendar day stored at UTC midnight,
- * so the UTC weekday is the local one and UTC arithmetic has no daylight-saving
- * gaps. Weekends never count, whatever the learner does on them.
+ * Monday of the local week that contains `date`. Progress dates sit at UTC
+ * midnight of the learner's local day, so UTC arithmetic has no daylight-saving
+ * gaps.
  */
-function isWorkday(date: Date): boolean {
-  const weekday = date.getUTCDay();
-  return weekday >= MONDAY && weekday <= FRIDAY;
-}
-
-/** Monday of the local week that contains `date`. */
 function getWeekStart(date: Date): Date {
   const daysSinceMonday = (date.getUTCDay() + DAYS_PER_WEEK - MONDAY) % DAYS_PER_WEEK;
   return new Date(date.getTime() - daysSinceMonday * DAY_MS);

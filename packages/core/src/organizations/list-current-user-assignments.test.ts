@@ -76,10 +76,10 @@ describe(listCurrentUserAssignments, () => {
   });
 
   it("drops the obligation once its period is closed", async () => {
-    const { assignment, learner, learnerMember, owner } = await requiredCourseFixture();
+    const { assignment, learner, learnerMember } = await requiredCourseFixture();
 
     await prisma.member.delete({ where: { id: learnerMember.id } });
-    mockSession(owner.id);
+
     await reconcileAssignmentRecipients({
       assignment: await prisma.assignment.findUniqueOrThrow({
         include: { targets: true },

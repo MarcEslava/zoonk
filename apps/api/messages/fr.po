@@ -164,3 +164,13 @@ msgstr "Pour ta sécurité, nous ne pouvons pas te rediriger vers une destinatio
 msgctxt "-e4BVR"
 msgid "Continue to Zoonk"
 msgstr "Continuer vers Zoonk"
+
+#: src/app/internal/reminders/route.ts
+msgctxt "d-X5_w"
+msgid "A few minutes today keep your weekly habit going."
+msgstr ""
+
+#: src/app/internal/reminders/route.ts
+msgctxt "_4HDPp"
+msgid "Time for today's training"
+msgstr ""

@@ -108,6 +108,7 @@
     "./progress/score-date-range": "./src/progress/score-date-range.ts",
     "./progress/score-performance": "./src/progress/score-performance.ts",
     "./progress/user-progress": "./src/progress/user-progress.ts",
+    "./reminders/internal/send-due-reminders": "./src/reminders/internal/send-due-reminders.ts",
     "./reminders/push-subscription": "./src/reminders/save-push-subscription.ts",
     "./security/headers": "./src/security/headers.ts",
     "./subscriptions/apple-contract": "./src/subscriptions/apple-contract.ts",

@@ -164,3 +164,13 @@ msgstr "For your safety, we cannot redirect you to an unrecognized destination."
 msgctxt "-e4BVR"
 msgid "Continue to Zoonk"
 msgstr "Continue to Zoonk"
+
+#: src/app/internal/reminders/route.ts
+msgctxt "d-X5_w"
+msgid "A few minutes today keep your weekly habit going."
+msgstr "A few minutes today keep your weekly habit going."
+
+#: src/app/internal/reminders/route.ts
+msgctxt "_4HDPp"
+msgid "Time for today's training"
+msgstr "Time for today's training"

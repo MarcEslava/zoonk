@@ -27,3 +27,7 @@ export const organizationPathParamsSchema = z
 export const organizationMemberPathParamsSchema = z
   .object({ memberId: z.uuid().meta({ description: "Organization member ID" }) })
   .meta({ id: "OrganizationMemberPathParams" });
+
+export const stepPathParamsSchema = z
+  .object({ stepId: z.uuid().meta({ description: "Step ID" }) })
+  .meta({ id: "StepPathParams" });

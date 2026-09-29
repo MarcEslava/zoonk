@@ -25,7 +25,10 @@ type OrganizationAssignment = ReadyResult<
  * 404 like an unknown organization, so the API never confirms that another
  * customer's organization exists.
  */
-export function organizationAccessError(status: "forbidden" | "notFound" | "unauthorized") {
+export function organizationAccessError(
+  status: "forbidden" | "notFound" | "unauthorized",
+  notFoundMessage = "Organization not found",
+) {
   if (status === "unauthorized") {
     return errors.unauthorized();
   }
@@ -34,7 +37,7 @@ export function organizationAccessError(status: "forbidden" | "notFound" | "unau
     return errors.forbidden();
   }
 
-  return errors.notFound("Organization not found");
+  return errors.notFound(notFoundMessage);
 }
 
 export function toOrganizationCourse(course: OrganizationCourse) {

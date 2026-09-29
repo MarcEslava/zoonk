@@ -2233,6 +2233,580 @@
         }
       }
     },
+    "/courses/{courseId}/review": {
+      "get": {
+        "operationId": "getCourseReview",
+        "security": [
+          {
+            "bearerAuth": []
+          },
+          {
+            "cookieAuth": []
+          }
+        ],
+        "summary": "Outline a course for review",
+        "tags": [
+          "Lesson review"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "courseId",
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$",
+              "description": "Course ID"
+            },
+            "required": true,
+            "description": "Course ID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Every chapter and lesson, published or not, with pending corrections",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CourseReviewResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Validation error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authentication required",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Request forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Resource not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/lessons/{lessonId}/approval": {
+      "post": {
+        "description": "Copies the lesson's drafts into what the team sees and publishes the lesson. Refused with 403 for anyone who edited the lesson since its last approval, and with 409 when nothing waits for approval.",
+        "operationId": "approveLesson",
+        "security": [
+          {
+            "bearerAuth": []
+          },
+          {
+            "cookieAuth": []
+          }
+        ],
+        "summary": "Approve a lesson",
+        "tags": [
+          "Lesson review"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "lessonId",
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$",
+              "description": "Lesson ID"
+            },
+            "required": true,
+            "description": "Lesson ID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Lesson approved and published",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LessonApprovalResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Validation error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authentication required",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Request forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Resource not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/lessons/{lessonId}/review": {
+      "get": {
+        "operationId": "getLessonReview",
+        "security": [
+          {
+            "bearerAuth": []
+          },
+          {
+            "cookieAuth": []
+          }
+        ],
+        "summary": "Review a lesson",
+        "tags": [
+          "Lesson review"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "lessonId",
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$",
+              "description": "Lesson ID"
+            },
+            "required": true,
+            "description": "Lesson ID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The lesson's steps, pending corrections and history",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LessonReviewResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Validation error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authentication required",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Request forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Resource not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/organizations/{organizationId}/courses": {
+      "get": {
+        "operationId": "listOrganizationCourses",
+        "security": [
+          {
+            "bearerAuth": []
+          },
+          {
+            "cookieAuth": []
+          }
+        ],
+        "summary": "List an organization's courses for review",
+        "tags": [
+          "Lesson review"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "organizationId",
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$",
+              "description": "Organization ID"
+            },
+            "required": true,
+            "description": "Organization ID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The organization's own courses, drafts included",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReviewCourseListResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Validation error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authentication required",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Request forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Resource not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/steps/{stepId}/draft": {
+      "delete": {
+        "operationId": "discardStepDraft",
+        "security": [
+          {
+            "bearerAuth": []
+          },
+          {
+            "cookieAuth": []
+          }
+        ],
+        "summary": "Discard a step's correction",
+        "tags": [
+          "Lesson review"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "stepId",
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$",
+              "description": "Step ID"
+            },
+            "required": true,
+            "description": "Step ID"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Draft discarded"
+          },
+          "400": {
+            "description": "Validation error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authentication required",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Request forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Resource not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "description": "Saves a correction as a draft. The team keeps seeing the approved content until someone else approves the lesson.",
+        "operationId": "saveStepDraft",
+        "security": [
+          {
+            "bearerAuth": []
+          },
+          {
+            "cookieAuth": []
+          }
+        ],
+        "summary": "Save a step's correction",
+        "tags": [
+          "Lesson review"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "stepId",
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$",
+              "description": "Step ID"
+            },
+            "required": true,
+            "description": "Step ID"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EditedStepContent"
+              }
+            }
+          }
+        },
+        "responses": {
+          "204": {
+            "description": "Draft saved"
+          },
+          "400": {
+            "description": "Validation error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authentication required",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Request forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Resource not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "The request is valid but cannot be applied to the resource",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/lessons/{lessonId}/questions": {
       "get": {
         "operationId": "getLessonQuestionThread",
@@ -5704,6 +6278,333 @@
           "stepTimings",
           "timeZone"
         ]
+      },
+      "EditedStepContent": {
+        "oneOf": [
+          {
+            "type": "object",
+            "properties": {
+              "content": {
+                "type": "object",
+                "properties": {
+                  "answers": {
+                    "minItems": 1,
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "distractors": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "feedback": {
+                    "type": "string"
+                  },
+                  "question": {
+                    "type": "string"
+                  },
+                  "romanizations": {
+                    "nullable": true,
+                    "type": "object",
+                    "additionalProperties": {
+                      "type": "string"
+                    }
+                  },
+                  "template": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "answers",
+                  "distractors",
+                  "feedback",
+                  "template"
+                ],
+                "additionalProperties": false
+              },
+              "kind": {
+                "type": "string",
+                "enum": [
+                  "fillBlank"
+                ]
+              }
+            },
+            "required": [
+              "content",
+              "kind"
+            ]
+          },
+          {
+            "type": "object",
+            "properties": {
+              "content": {
+                "type": "object",
+                "properties": {
+                  "pairs": {
+                    "minItems": 1,
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "left": {
+                          "type": "string"
+                        },
+                        "right": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "left",
+                        "right"
+                      ],
+                      "additionalProperties": false
+                    }
+                  },
+                  "question": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "pairs"
+                ],
+                "additionalProperties": false
+              },
+              "kind": {
+                "type": "string",
+                "enum": [
+                  "matchColumns"
+                ]
+              }
+            },
+            "required": [
+              "content",
+              "kind"
+            ]
+          },
+          {
+            "type": "object",
+            "properties": {
+              "content": {
+                "type": "object",
+                "properties": {
+                  "context": {
+                    "type": "string"
+                  },
+                  "image": {
+                    "type": "object",
+                    "properties": {
+                      "prompt": {
+                        "type": "string"
+                      },
+                      "url": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "prompt"
+                    ],
+                    "additionalProperties": false
+                  },
+                  "options": {
+                    "minItems": 1,
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "feedback": {
+                          "type": "string"
+                        },
+                        "id": {
+                          "type": "string"
+                        },
+                        "isCorrect": {
+                          "type": "boolean"
+                        },
+                        "text": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "feedback",
+                        "id",
+                        "isCorrect",
+                        "text"
+                      ],
+                      "additionalProperties": false
+                    }
+                  },
+                  "question": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "options"
+                ],
+                "additionalProperties": false
+              },
+              "kind": {
+                "type": "string",
+                "enum": [
+                  "multipleChoice"
+                ]
+              }
+            },
+            "required": [
+              "content",
+              "kind"
+            ]
+          },
+          {
+            "type": "object",
+            "properties": {
+              "content": {
+                "type": "object",
+                "properties": {
+                  "feedback": {
+                    "type": "string"
+                  },
+                  "items": {
+                    "minItems": 1,
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "question": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "feedback",
+                  "items",
+                  "question"
+                ],
+                "additionalProperties": false
+              },
+              "kind": {
+                "type": "string",
+                "enum": [
+                  "sortOrder"
+                ]
+              }
+            },
+            "required": [
+              "content",
+              "kind"
+            ]
+          },
+          {
+            "type": "object",
+            "properties": {
+              "content": {
+                "oneOf": [
+                  {
+                    "type": "object",
+                    "properties": {
+                      "text": {
+                        "type": "string"
+                      },
+                      "title": {
+                        "type": "string"
+                      },
+                      "variant": {
+                        "type": "string",
+                        "enum": [
+                          "text"
+                        ]
+                      },
+                      "image": {
+                        "type": "object",
+                        "properties": {
+                          "prompt": {
+                            "type": "string"
+                          },
+                          "url": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "prompt"
+                        ],
+                        "additionalProperties": false
+                      }
+                    },
+                    "required": [
+                      "text",
+                      "title",
+                      "variant"
+                    ],
+                    "additionalProperties": false
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "highlight": {
+                        "type": "string"
+                      },
+                      "romanization": {
+                        "nullable": true,
+                        "type": "string",
+                        "minLength": 1
+                      },
+                      "sentence": {
+                        "type": "string"
+                      },
+                      "translation": {
+                        "type": "string"
+                      },
+                      "variant": {
+                        "type": "string",
+                        "enum": [
+                          "grammarExample"
+                        ]
+                      },
+                      "image": {
+                        "type": "object",
+                        "properties": {
+                          "prompt": {
+                            "type": "string"
+                          },
+                          "url": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "prompt"
+                        ],
+                        "additionalProperties": false
+                      }
+                    },
+                    "required": [
+                      "highlight",
+                      "romanization",
+                      "sentence",
+                      "translation",
+                      "variant"
+                    ],
+                    "additionalProperties": false
+                  }
+                ],
+                "type": "object"
+              },
+              "kind": {
+                "type": "string",
+                "enum": [
+                  "static"
+                ]
+              }
+            },
+            "required": [
+              "content",
+              "kind"
+            ]
+          }
+        ],
+        "description": "The whole corrected step. The kind must match the step's kind. Images are generated artwork and are kept as they are, so any image sent here is ignored.",
+        "type": "object"
       },
       "CreateLessonQuestionRequest": {
         "type": "object",
@@ -9184,6 +10085,878 @@
         ],
         "additionalProperties": false
       },
+      "CourseReviewResponse": {
+        "type": "object",
+        "properties": {
+          "chapters": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ReviewChapter"
+            }
+          },
+          "course": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "format": "uuid",
+                "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+              },
+              "isPublished": {
+                "type": "boolean"
+              },
+              "title": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id",
+              "isPublished",
+              "title"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "required": [
+          "chapters",
+          "course"
+        ],
+        "additionalProperties": false
+      },
+      "ReviewChapter": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+          },
+          "lessons": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ReviewLessonSummary"
+            }
+          },
+          "title": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "lessons",
+          "title"
+        ],
+        "additionalProperties": false
+      },
+      "ReviewLessonSummary": {
+        "type": "object",
+        "properties": {
+          "draftCount": {
+            "type": "integer",
+            "minimum": -9007199254740991,
+            "maximum": 9007199254740991,
+            "description": "Steps with a correction waiting"
+          },
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+          },
+          "isPublished": {
+            "type": "boolean",
+            "description": "Whether the team can see the lesson"
+          },
+          "title": {
+            "nullable": true,
+            "type": "string"
+          }
+        },
+        "required": [
+          "draftCount",
+          "id",
+          "isPublished",
+          "title"
+        ],
+        "additionalProperties": false
+      },
+      "LessonApprovalResponse": {
+        "type": "object",
+        "properties": {
+          "approvedDrafts": {
+            "type": "integer",
+            "minimum": -9007199254740991,
+            "maximum": 9007199254740991,
+            "description": "Corrections that became visible to the team"
+          }
+        },
+        "required": [
+          "approvedDrafts"
+        ],
+        "additionalProperties": false
+      },
+      "LessonReviewResponse": {
+        "type": "object",
+        "properties": {
+          "canApprove": {
+            "type": "boolean",
+            "description": "Something waits for approval and the caller did not edit it"
+          },
+          "hasPendingChanges": {
+            "type": "boolean"
+          },
+          "history": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/LessonReviewEvent"
+            },
+            "description": "Most recent first"
+          },
+          "isOwnChange": {
+            "type": "boolean",
+            "description": "The caller edited the lesson since its last approval, so cannot approve it"
+          },
+          "lesson": {
+            "type": "object",
+            "properties": {
+              "chapterId": {
+                "type": "string",
+                "format": "uuid",
+                "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+              },
+              "chapterTitle": {
+                "type": "string"
+              },
+              "courseId": {
+                "type": "string",
+                "format": "uuid",
+                "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+              },
+              "courseTitle": {
+                "type": "string"
+              },
+              "id": {
+                "type": "string",
+                "format": "uuid",
+                "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+              },
+              "isPublished": {
+                "type": "boolean"
+              },
+              "title": {
+                "nullable": true,
+                "type": "string"
+              }
+            },
+            "required": [
+              "chapterId",
+              "chapterTitle",
+              "courseId",
+              "courseTitle",
+              "id",
+              "isPublished",
+              "title"
+            ],
+            "additionalProperties": false
+          },
+          "steps": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ReviewStep"
+            }
+          }
+        },
+        "required": [
+          "canApprove",
+          "hasPendingChanges",
+          "history",
+          "isOwnChange",
+          "lesson",
+          "steps"
+        ],
+        "additionalProperties": false
+      },
+      "LessonReviewEvent": {
+        "type": "object",
+        "properties": {
+          "action": {
+            "type": "string",
+            "enum": [
+              "stepEdited",
+              "draftDiscarded",
+              "approved"
+            ]
+          },
+          "actorName": {
+            "nullable": true,
+            "description": "Null once the person was deleted",
+            "type": "string"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time",
+            "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z))$"
+          },
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+          },
+          "stepId": {
+            "nullable": true,
+            "type": "string",
+            "format": "uuid",
+            "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+          }
+        },
+        "required": [
+          "action",
+          "actorName",
+          "createdAt",
+          "id",
+          "stepId"
+        ],
+        "additionalProperties": false
+      },
+      "ReviewStep": {
+        "allOf": [
+          {
+            "type": "object",
+            "properties": {
+              "draft": {
+                "nullable": true,
+                "description": "The correction waiting for approval, invisible to the team",
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/StepDraft"
+                  }
+                ]
+              },
+              "id": {
+                "type": "string",
+                "format": "uuid",
+                "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+              },
+              "isEditable": {
+                "type": "boolean"
+              },
+              "position": {
+                "type": "integer",
+                "minimum": -9007199254740991,
+                "maximum": 9007199254740991
+              }
+            },
+            "required": [
+              "draft",
+              "id",
+              "isEditable",
+              "position"
+            ],
+            "additionalProperties": false
+          },
+          {
+            "oneOf": [
+              {
+                "type": "object",
+                "properties": {
+                  "content": {
+                    "type": "object",
+                    "properties": {
+                      "audioText": {
+                        "type": "string"
+                      },
+                      "audioUrl": {
+                        "nullable": true,
+                        "type": "string"
+                      },
+                      "forms": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "label": {
+                              "type": "string"
+                            },
+                            "symbol": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "label",
+                            "symbol"
+                          ],
+                          "additionalProperties": false
+                        }
+                      },
+                      "pronunciation": {
+                        "type": "string"
+                      },
+                      "readingAid": {
+                        "type": "string"
+                      },
+                      "symbol": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "audioText",
+                      "audioUrl",
+                      "forms",
+                      "pronunciation",
+                      "readingAid",
+                      "symbol"
+                    ],
+                    "additionalProperties": false
+                  },
+                  "kind": {
+                    "type": "string",
+                    "enum": [
+                      "alphabet"
+                    ]
+                  }
+                },
+                "required": [
+                  "content",
+                  "kind"
+                ],
+                "additionalProperties": false
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "content": {
+                    "type": "object",
+                    "properties": {
+                      "answers": {
+                        "minItems": 1,
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      },
+                      "distractors": {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      },
+                      "feedback": {
+                        "type": "string"
+                      },
+                      "question": {
+                        "type": "string"
+                      },
+                      "romanizations": {
+                        "nullable": true,
+                        "type": "object",
+                        "additionalProperties": {
+                          "type": "string"
+                        }
+                      },
+                      "template": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "answers",
+                      "distractors",
+                      "feedback",
+                      "template"
+                    ],
+                    "additionalProperties": false
+                  },
+                  "kind": {
+                    "type": "string",
+                    "enum": [
+                      "fillBlank"
+                    ]
+                  }
+                },
+                "required": [
+                  "content",
+                  "kind"
+                ],
+                "additionalProperties": false
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "content": {
+                    "type": "object",
+                    "properties": {},
+                    "additionalProperties": false
+                  },
+                  "kind": {
+                    "type": "string",
+                    "enum": [
+                      "listening"
+                    ]
+                  }
+                },
+                "required": [
+                  "content",
+                  "kind"
+                ],
+                "additionalProperties": false
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "content": {
+                    "type": "object",
+                    "properties": {
+                      "pairs": {
+                        "minItems": 1,
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "left": {
+                              "type": "string"
+                            },
+                            "right": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "left",
+                            "right"
+                          ],
+                          "additionalProperties": false
+                        }
+                      },
+                      "question": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "pairs"
+                    ],
+                    "additionalProperties": false
+                  },
+                  "kind": {
+                    "type": "string",
+                    "enum": [
+                      "matchColumns"
+                    ]
+                  }
+                },
+                "required": [
+                  "content",
+                  "kind"
+                ],
+                "additionalProperties": false
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "content": {
+                    "type": "object",
+                    "properties": {
+                      "context": {
+                        "type": "string"
+                      },
+                      "image": {
+                        "type": "object",
+                        "properties": {
+                          "prompt": {
+                            "type": "string"
+                          },
+                          "url": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "prompt"
+                        ],
+                        "additionalProperties": false
+                      },
+                      "options": {
+                        "minItems": 1,
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "feedback": {
+                              "type": "string"
+                            },
+                            "id": {
+                              "type": "string"
+                            },
+                            "isCorrect": {
+                              "type": "boolean"
+                            },
+                            "text": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "feedback",
+                            "id",
+                            "isCorrect",
+                            "text"
+                          ],
+                          "additionalProperties": false
+                        }
+                      },
+                      "question": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "options"
+                    ],
+                    "additionalProperties": false
+                  },
+                  "kind": {
+                    "type": "string",
+                    "enum": [
+                      "multipleChoice"
+                    ]
+                  }
+                },
+                "required": [
+                  "content",
+                  "kind"
+                ],
+                "additionalProperties": false
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "content": {
+                    "type": "object",
+                    "properties": {},
+                    "additionalProperties": false
+                  },
+                  "kind": {
+                    "type": "string",
+                    "enum": [
+                      "reading"
+                    ]
+                  }
+                },
+                "required": [
+                  "content",
+                  "kind"
+                ],
+                "additionalProperties": false
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "content": {
+                    "type": "object",
+                    "properties": {
+                      "options": {
+                        "minItems": 1,
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "feedback": {
+                              "type": "string"
+                            },
+                            "id": {
+                              "type": "string"
+                            },
+                            "isCorrect": {
+                              "type": "boolean"
+                            },
+                            "prompt": {
+                              "type": "string"
+                            },
+                            "url": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "feedback",
+                            "id",
+                            "isCorrect",
+                            "prompt"
+                          ],
+                          "additionalProperties": false
+                        }
+                      },
+                      "question": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "options",
+                      "question"
+                    ],
+                    "additionalProperties": false
+                  },
+                  "kind": {
+                    "type": "string",
+                    "enum": [
+                      "selectImage"
+                    ]
+                  }
+                },
+                "required": [
+                  "content",
+                  "kind"
+                ],
+                "additionalProperties": false
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "content": {
+                    "type": "object",
+                    "properties": {
+                      "feedback": {
+                        "type": "string"
+                      },
+                      "items": {
+                        "minItems": 1,
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      },
+                      "question": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "feedback",
+                      "items",
+                      "question"
+                    ],
+                    "additionalProperties": false
+                  },
+                  "kind": {
+                    "type": "string",
+                    "enum": [
+                      "sortOrder"
+                    ]
+                  }
+                },
+                "required": [
+                  "content",
+                  "kind"
+                ],
+                "additionalProperties": false
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "content": {
+                    "oneOf": [
+                      {
+                        "type": "object",
+                        "properties": {
+                          "text": {
+                            "type": "string"
+                          },
+                          "title": {
+                            "type": "string"
+                          },
+                          "variant": {
+                            "type": "string",
+                            "enum": [
+                              "text"
+                            ]
+                          },
+                          "image": {
+                            "type": "object",
+                            "properties": {
+                              "prompt": {
+                                "type": "string"
+                              },
+                              "url": {
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "prompt"
+                            ],
+                            "additionalProperties": false
+                          }
+                        },
+                        "required": [
+                          "text",
+                          "title",
+                          "variant"
+                        ],
+                        "additionalProperties": false
+                      },
+                      {
+                        "type": "object",
+                        "properties": {
+                          "highlight": {
+                            "type": "string"
+                          },
+                          "romanization": {
+                            "nullable": true,
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "sentence": {
+                            "type": "string"
+                          },
+                          "translation": {
+                            "type": "string"
+                          },
+                          "variant": {
+                            "type": "string",
+                            "enum": [
+                              "grammarExample"
+                            ]
+                          },
+                          "image": {
+                            "type": "object",
+                            "properties": {
+                              "prompt": {
+                                "type": "string"
+                              },
+                              "url": {
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "prompt"
+                            ],
+                            "additionalProperties": false
+                          }
+                        },
+                        "required": [
+                          "highlight",
+                          "romanization",
+                          "sentence",
+                          "translation",
+                          "variant"
+                        ],
+                        "additionalProperties": false
+                      }
+                    ],
+                    "type": "object"
+                  },
+                  "kind": {
+                    "type": "string",
+                    "enum": [
+                      "static"
+                    ]
+                  }
+                },
+                "required": [
+                  "content",
+                  "kind"
+                ],
+                "additionalProperties": false
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "content": {
+                    "type": "object",
+                    "properties": {},
+                    "additionalProperties": false
+                  },
+                  "kind": {
+                    "type": "string",
+                    "enum": [
+                      "translation"
+                    ]
+                  }
+                },
+                "required": [
+                  "content",
+                  "kind"
+                ],
+                "additionalProperties": false
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "content": {
+                    "type": "object",
+                    "properties": {},
+                    "additionalProperties": false
+                  },
+                  "kind": {
+                    "type": "string",
+                    "enum": [
+                      "vocabulary"
+                    ]
+                  }
+                },
+                "required": [
+                  "content",
+                  "kind"
+                ],
+                "additionalProperties": false
+              }
+            ],
+            "type": "object"
+          }
+        ],
+        "description": "A step as the team sees it now"
+      },
+      "StepDraft": {
+        "type": "object",
+        "properties": {
+          "edit": {
+            "$ref": "#/components/schemas/EditedStepContentOutput"
+          },
+          "editedByName": {
+            "type": "string"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time",
+            "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z))$"
+          }
+        },
+        "required": [
+          "edit",
+          "editedByName",
+          "updatedAt"
+        ],
+        "additionalProperties": false
+      },
+      "ReviewCourseListResponse": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "format": "uuid",
+                  "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+                },
+                "imageUrl": {
+                  "nullable": true,
+                  "type": "string"
+                },
+                "isPublished": {
+                  "type": "boolean"
+                },
+                "title": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "id",
+                "imageUrl",
+                "isPublished",
+                "title"
+              ],
+              "additionalProperties": false
+            }
+          }
+        },
+        "required": [
+          "data"
+        ],
+        "additionalProperties": false
+      },
       "LessonQuestionThread": {
         "type": "object",
         "properties": {
@@ -11017,6 +12790,338 @@
           "hiddenLessonKinds"
         ],
         "additionalProperties": false
+      },
+      "EditedStepContentOutput": {
+        "oneOf": [
+          {
+            "type": "object",
+            "properties": {
+              "content": {
+                "type": "object",
+                "properties": {
+                  "answers": {
+                    "minItems": 1,
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "distractors": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "feedback": {
+                    "type": "string"
+                  },
+                  "question": {
+                    "type": "string"
+                  },
+                  "romanizations": {
+                    "nullable": true,
+                    "type": "object",
+                    "additionalProperties": {
+                      "type": "string"
+                    }
+                  },
+                  "template": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "answers",
+                  "distractors",
+                  "feedback",
+                  "template"
+                ],
+                "additionalProperties": false
+              },
+              "kind": {
+                "type": "string",
+                "enum": [
+                  "fillBlank"
+                ]
+              }
+            },
+            "required": [
+              "content",
+              "kind"
+            ],
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "properties": {
+              "content": {
+                "type": "object",
+                "properties": {
+                  "pairs": {
+                    "minItems": 1,
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "left": {
+                          "type": "string"
+                        },
+                        "right": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "left",
+                        "right"
+                      ],
+                      "additionalProperties": false
+                    }
+                  },
+                  "question": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "pairs"
+                ],
+                "additionalProperties": false
+              },
+              "kind": {
+                "type": "string",
+                "enum": [
+                  "matchColumns"
+                ]
+              }
+            },
+            "required": [
+              "content",
+              "kind"
+            ],
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "properties": {
+              "content": {
+                "type": "object",
+                "properties": {
+                  "context": {
+                    "type": "string"
+                  },
+                  "image": {
+                    "type": "object",
+                    "properties": {
+                      "prompt": {
+                        "type": "string"
+                      },
+                      "url": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "prompt"
+                    ],
+                    "additionalProperties": false
+                  },
+                  "options": {
+                    "minItems": 1,
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "feedback": {
+                          "type": "string"
+                        },
+                        "id": {
+                          "type": "string"
+                        },
+                        "isCorrect": {
+                          "type": "boolean"
+                        },
+                        "text": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "feedback",
+                        "id",
+                        "isCorrect",
+                        "text"
+                      ],
+                      "additionalProperties": false
+                    }
+                  },
+                  "question": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "options"
+                ],
+                "additionalProperties": false
+              },
+              "kind": {
+                "type": "string",
+                "enum": [
+                  "multipleChoice"
+                ]
+              }
+            },
+            "required": [
+              "content",
+              "kind"
+            ],
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "properties": {
+              "content": {
+                "type": "object",
+                "properties": {
+                  "feedback": {
+                    "type": "string"
+                  },
+                  "items": {
+                    "minItems": 1,
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "question": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "feedback",
+                  "items",
+                  "question"
+                ],
+                "additionalProperties": false
+              },
+              "kind": {
+                "type": "string",
+                "enum": [
+                  "sortOrder"
+                ]
+              }
+            },
+            "required": [
+              "content",
+              "kind"
+            ],
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "properties": {
+              "content": {
+                "oneOf": [
+                  {
+                    "type": "object",
+                    "properties": {
+                      "text": {
+                        "type": "string"
+                      },
+                      "title": {
+                        "type": "string"
+                      },
+                      "variant": {
+                        "type": "string",
+                        "enum": [
+                          "text"
+                        ]
+                      },
+                      "image": {
+                        "type": "object",
+                        "properties": {
+                          "prompt": {
+                            "type": "string"
+                          },
+                          "url": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "prompt"
+                        ],
+                        "additionalProperties": false
+                      }
+                    },
+                    "required": [
+                      "text",
+                      "title",
+                      "variant"
+                    ],
+                    "additionalProperties": false
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "highlight": {
+                        "type": "string"
+                      },
+                      "romanization": {
+                        "nullable": true,
+                        "type": "string",
+                        "minLength": 1
+                      },
+                      "sentence": {
+                        "type": "string"
+                      },
+                      "translation": {
+                        "type": "string"
+                      },
+                      "variant": {
+                        "type": "string",
+                        "enum": [
+                          "grammarExample"
+                        ]
+                      },
+                      "image": {
+                        "type": "object",
+                        "properties": {
+                          "prompt": {
+                            "type": "string"
+                          },
+                          "url": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "prompt"
+                        ],
+                        "additionalProperties": false
+                      }
+                    },
+                    "required": [
+                      "highlight",
+                      "romanization",
+                      "sentence",
+                      "translation",
+                      "variant"
+                    ],
+                    "additionalProperties": false
+                  }
+                ],
+                "type": "object"
+              },
+              "kind": {
+                "type": "string",
+                "enum": [
+                  "static"
+                ]
+              }
+            },
+            "required": [
+              "content",
+              "kind"
+            ],
+            "additionalProperties": false
+          }
+        ],
+        "description": "The whole corrected step. The kind must match the step's kind. Images are generated artwork and are kept as they are, so any image sent here is ignored.",
+        "type": "object"
       },
       "ReminderScheduleOutput": {
         "type": "object",

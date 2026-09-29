@@ -1,5 +1,5 @@
 import { getOriginalCourseHref } from "@/data/courses/course-href";
-import { getChapter } from "@zoonk/core/chapters/get-by-slug";
+import { getViewerChapter } from "@zoonk/core/chapters/get-viewer-by-slug";
 import { listChapterLessons } from "@zoonk/core/lessons/list-by-chapter";
 import { getLessonVisibility } from "@zoonk/core/users/lesson-visibility";
 import { AI_ORG_SLUG } from "@zoonk/utils/org";
@@ -17,7 +17,7 @@ export async function ChapterLessonGrid({
   const { brandSlug, chapterSlug, courseSlug } = await params;
 
   const [chapter, lessonVisibility] = await Promise.all([
-    getChapter({ brandSlug, chapterSlug, courseSlug }),
+    getViewerChapter({ brandSlug, chapterSlug, courseSlug }),
     getLessonVisibility(),
   ]);
 

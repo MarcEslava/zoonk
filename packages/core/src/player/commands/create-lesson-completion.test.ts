@@ -3,7 +3,7 @@ import { type GenerationStatus, prisma } from "@zoonk/db";
 import { chapterFixture } from "@zoonk/testing/fixtures/chapters";
 import { courseFixture } from "@zoonk/testing/fixtures/courses";
 import { lessonFixture } from "@zoonk/testing/fixtures/lessons";
-import { organizationFixture } from "@zoonk/testing/fixtures/orgs";
+import { organizationFixture, organizationMemberFixture } from "@zoonk/testing/fixtures/orgs";
 import { chapterSentenceFixture, sentenceFixture } from "@zoonk/testing/fixtures/sentences";
 import { stepFixture } from "@zoonk/testing/fixtures/steps";
 import { userFixture } from "@zoonk/testing/fixtures/users";
@@ -594,6 +594,33 @@ describe(completeLesson, () => {
     expect(revalidateTag).toHaveBeenCalledExactlyOnceWith(getUserProgressCacheTag(user.id), {
       expire: 0,
     });
+  });
+
+  it("persists completion when a member plays their organization's lesson", async () => {
+    const [user, { chapter, organization }] = await Promise.all([
+      userFixture(),
+      createChapterContext({ organizationKind: "school" }),
+    ]);
+
+    await organizationMemberFixture({ organizationId: organization.id, userId: user.id });
+
+    const { lesson, step } = await createMultipleChoiceLesson({
+      chapterId: chapter.id,
+      organizationId: organization.id,
+      position: 0,
+    });
+
+    const result = await submitCompletionForUser({
+      input: buildCompletionInput({ lessonId: lesson.id, stepId: step.id }),
+      userId: user.id,
+    });
+
+    const stepAttempts = await prisma.stepAttempt.findMany({
+      where: { stepId: step.id, userId: user.id },
+    });
+
+    expect(result).toMatchObject({ status: "completed" });
+    expect(stepAttempts).toHaveLength(1);
   });
 
   it("persists every successful match and wrong attempt in the lesson score", async () => {

@@ -2,8 +2,9 @@ import { GeneratedCourseCacheRefresher } from "@/components/catalog/generated-co
 import { redirect } from "@/i18n/navigation";
 import { getDefaultChapterImage } from "@/lib/catalog/default-images";
 import { type CourseChapter, listCourseChapters } from "@zoonk/core/chapters/list-by-course";
-import { type CourseWithDetails, getCourse } from "@zoonk/core/courses/get-by-slug";
+import { type CourseWithDetails } from "@zoonk/core/courses/get-by-slug";
 import { getCoursePromptByCourseSlug } from "@zoonk/core/courses/get-prompt-by-course";
+import { getViewerCourse } from "@zoonk/core/courses/get-viewer-by-slug";
 import { getLessonVisibility } from "@zoonk/core/users/lesson-visibility";
 import { AI_ORG_SLUG } from "@zoonk/utils/org";
 import { notFound } from "next/navigation";
@@ -42,7 +43,7 @@ export async function CourseChapterGrid({
   const { brandSlug, courseSlug, lang: locale } = await params;
 
   const [course, lessonVisibility] = await Promise.all([
-    getCourse({ brandSlug, courseSlug }),
+    getViewerCourse({ brandSlug, courseSlug }),
     getLessonVisibility(),
   ]);
 

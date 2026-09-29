@@ -20,6 +20,7 @@ import { LogInIcon } from "lucide-react";
 import { type Metadata } from "next";
 import { getExtracted } from "next-intl/server";
 import { Suspense } from "react";
+import { AssignedCourseList } from "./assigned-course-list";
 import { UserCourseList, UserCourseListSkeleton } from "./user-course-list";
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -67,7 +68,12 @@ async function MyCoursesBody() {
     );
   }
 
-  return <UserCourseList />;
+  return (
+    <div className="flex flex-col gap-8">
+      <AssignedCourseList />
+      <UserCourseList />
+    </div>
+  );
 }
 
 export default async function MyCourses() {

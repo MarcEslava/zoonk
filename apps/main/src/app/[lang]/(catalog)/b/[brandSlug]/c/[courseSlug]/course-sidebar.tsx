@@ -5,7 +5,7 @@ import {
   ContinueLessonLinkSkeleton,
 } from "@/components/catalog/continue-lesson-link";
 import { listCourseChapters } from "@zoonk/core/chapters/list-by-course";
-import { getCourse } from "@zoonk/core/courses/get-by-slug";
+import { getViewerCourse } from "@zoonk/core/courses/get-viewer-by-slug";
 import { getLessonVisibility } from "@zoonk/core/users/lesson-visibility";
 import { getSession } from "@zoonk/core/users/session";
 import { GridToolbar } from "@zoonk/ui/components/grid";
@@ -23,7 +23,7 @@ export async function CourseSidebar({
   const { brandSlug, courseSlug } = await params;
 
   const [course, lessonVisibility, session] = await Promise.all([
-    getCourse({ brandSlug, courseSlug }),
+    getViewerCourse({ brandSlug, courseSlug }),
     getLessonVisibility(),
     getSession(),
   ]);

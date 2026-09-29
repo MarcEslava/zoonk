@@ -4,7 +4,7 @@ import {
   ContinueLessonLink,
   ContinueLessonLinkSkeleton,
 } from "@/components/catalog/continue-lesson-link";
-import { getChapter } from "@zoonk/core/chapters/get-by-slug";
+import { getViewerChapter } from "@zoonk/core/chapters/get-viewer-by-slug";
 import { listChapterLessons } from "@zoonk/core/lessons/list-by-chapter";
 import { getLessonVisibility } from "@zoonk/core/users/lesson-visibility";
 import { getSession } from "@zoonk/core/users/session";
@@ -42,7 +42,7 @@ export async function ChapterSidebar({
   const { brandSlug, chapterSlug, courseSlug } = await params;
 
   const [chapter, lessonVisibility, session] = await Promise.all([
-    getChapter({ brandSlug, chapterSlug, courseSlug }),
+    getViewerChapter({ brandSlug, chapterSlug, courseSlug }),
     getLessonVisibility(),
     getSession(),
   ]);

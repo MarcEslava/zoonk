@@ -6,9 +6,11 @@ import { redirect } from "@/i18n/navigation";
 import { getLessonDisplayMeta, getLessonSeoMeta } from "@/lib/lessons";
 import { isLessonSeoIndexable } from "@/lib/lessons/seo";
 import { getLocalizedUrl } from "@/lib/metadata/localized-url";
+import { UNRESOLVED_CATALOG_ROUTE_METADATA } from "@/lib/metadata/unresolved-catalog-route";
 import { listCourseChapters } from "@zoonk/core/chapters/list-by-course";
 import { getFirstCourseLesson } from "@zoonk/core/courses/get-first-lesson";
 import { type CatalogLesson, getLesson as getCatalogLesson } from "@zoonk/core/lessons/get-by-slug";
+import { getViewerLesson } from "@zoonk/core/lessons/get-viewer-by-slug";
 import { listChapterLessons } from "@zoonk/core/lessons/list-by-chapter";
 import { getNextLessonInCourse } from "@zoonk/core/lessons/next-in-course";
 import {
@@ -105,7 +107,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const lessonShell = await getCatalogLesson({ brandSlug, chapterSlug, courseSlug, lessonSlug });
 
   if (!lessonShell) {
-    return {};
+    return UNRESOLVED_CATALOG_ROUTE_METADATA;
   }
 
   const sourceLesson = await getLessonSeoSource(lessonShell);
@@ -142,7 +144,7 @@ async function LessonContent({ params }: Pick<Props, "params">) {
   const { brandSlug, chapterSlug, courseSlug, lang: locale, lessonSlug } = await params;
 
   const [lessonShell, session] = await Promise.all([
-    getCatalogLesson({ brandSlug, chapterSlug, courseSlug, lessonSlug }),
+    getViewerLesson({ brandSlug, chapterSlug, courseSlug, lessonSlug }),
     getSession(),
   ]);
 

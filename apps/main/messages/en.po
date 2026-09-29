@@ -600,6 +600,23 @@ msgctxt "hUF3bo"
 msgid "Start learning something new today"
 msgstr "Start learning something new today"
 
+#: src/app/[lang]/(catalog)/my/assigned-course-list.tsx
+msgctxt "gIf2py"
+msgid "Assigned to you"
+msgstr "Assigned to you"
+
+#: src/app/[lang]/(catalog)/my/assigned-course-list.tsx
+#: src/app/[lang]/(org)/org/[organizationSlug]/assignments/page.tsx
+msgctxt "LG2TRI"
+msgid "{minutes, number} min/day"
+msgstr "{minutes, number} min/day"
+
+#: src/app/[lang]/(catalog)/my/assigned-course-list.tsx
+#: src/app/[lang]/(org)/org/[organizationSlug]/assignments/page.tsx
+msgctxt "5vDqi-"
+msgid "Due {date}"
+msgstr "Due {date}"
+
 #: src/app/[lang]/(catalog)/my/page.tsx
 msgctxt "riE3I5"
 msgid "View all the courses you started on Zoonk. Continue where you left off and track your progress across interactive lessons."
@@ -1147,16 +1164,6 @@ msgstr "Current assignments"
 msgctxt "bmr_vx"
 msgid "{count, plural, one {Reaches # person} other {Reaches # people}}"
 msgstr "{count, plural, one {Reaches # person} other {Reaches # people}}"
-
-#: src/app/[lang]/(org)/org/[organizationSlug]/assignments/page.tsx
-msgctxt "LG2TRI"
-msgid "{minutes, number} min/day"
-msgstr "{minutes, number} min/day"
-
-#: src/app/[lang]/(org)/org/[organizationSlug]/assignments/page.tsx
-msgctxt "5vDqi-"
-msgid "Due {date}"
-msgstr "Due {date}"
 
 #: src/app/[lang]/(org)/org/[organizationSlug]/assignments/page.tsx
 msgctxt "nTr7Ig"

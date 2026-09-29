@@ -4,6 +4,7 @@ import {
   CatalogSidebarSkeleton,
 } from "@/components/catalog/catalog-skeletons";
 import { getLocalizedUrl } from "@/lib/metadata/localized-url";
+import { UNRESOLVED_CATALOG_ROUTE_METADATA } from "@/lib/metadata/unresolved-catalog-route";
 import { getChapter } from "@zoonk/core/chapters/get-by-slug";
 import { Grid } from "@zoonk/ui/components/grid";
 import { getContentLocale } from "@zoonk/utils/locale";
@@ -21,7 +22,7 @@ export async function generateMetadata({
   const chapter = await getChapter({ brandSlug, chapterSlug, courseSlug });
 
   if (!chapter) {
-    return {};
+    return UNRESOLVED_CATALOG_ROUTE_METADATA;
   }
 
   const contentLocale = getContentLocale(chapter.course.language);

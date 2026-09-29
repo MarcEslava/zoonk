@@ -1,4 +1,5 @@
 import { getLocalizedUrl } from "@/lib/metadata/localized-url";
+import { UNRESOLVED_CATALOG_ROUTE_METADATA } from "@/lib/metadata/unresolved-catalog-route";
 import { getCourse } from "@zoonk/core/courses/get-by-slug";
 import { getContentLocale } from "@zoonk/utils/locale";
 import { type Metadata } from "next";
@@ -13,7 +14,7 @@ export async function generateMetadata({
   const course = await getCourse({ brandSlug, courseSlug });
 
   if (!course) {
-    return {};
+    return UNRESOLVED_CATALOG_ROUTE_METADATA;
   }
 
   const contentLocale = getContentLocale(course.language);

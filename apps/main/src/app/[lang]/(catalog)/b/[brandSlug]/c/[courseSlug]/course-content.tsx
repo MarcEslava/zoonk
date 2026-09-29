@@ -5,7 +5,7 @@ import {
 } from "@/components/catalog/catalog-skeletons";
 import { redirect } from "@/i18n/navigation";
 import { getCourseEdition } from "@zoonk/core/courses/editions";
-import { getCourse } from "@zoonk/core/courses/get-by-slug";
+import { getViewerCourse } from "@zoonk/core/courses/get-viewer-by-slug";
 import { Grid } from "@zoonk/ui/components/grid";
 import { getContentLocale } from "@zoonk/utils/locale";
 import { notFound } from "next/navigation";
@@ -48,7 +48,7 @@ export async function CourseContent({
   searchParams,
 }: PageProps<"/[lang]/b/[brandSlug]/c/[courseSlug]">) {
   const { brandSlug, courseSlug, lang: locale } = await params;
-  const course = await getCourse({ brandSlug, courseSlug });
+  const course = await getViewerCourse({ brandSlug, courseSlug });
 
   if (!course) {
     notFound();

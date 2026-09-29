@@ -99,6 +99,7 @@
     "./progress/energy": "./src/progress/energy.ts",
     "./progress/get-belt-level": "./src/progress/get-belt-level.ts",
     "./progress/get-energy-data": "./src/progress/get-energy-data.ts",
+    "./progress/get-current-user-habit": "./src/progress/get-current-user-habit.ts",
     "./progress/get-energy-level": "./src/progress/get-energy-level.ts",
     "./progress/get-learning-activity": "./src/progress/get-learning-activity.ts",
     "./progress/get-learning-activity-totals": "./src/progress/get-learning-activity-totals.ts",

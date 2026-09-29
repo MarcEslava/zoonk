@@ -10,6 +10,7 @@ import {
 } from "@zoonk/ui/components/list";
 import { ClipboardCheckIcon } from "lucide-react";
 import { getExtracted, getFormatter } from "next-intl/server";
+import { HabitSummary } from "./habit-summary";
 
 /**
  * What an organization requires comes before what the learner chose to start,
@@ -32,6 +33,8 @@ export async function AssignedCourseList() {
   return (
     <section aria-label={t("Assigned to you")} className="flex flex-col gap-3">
       <h2 className="px-4 font-medium">{t("Assigned to you")}</h2>
+
+      <HabitSummary />
 
       <ListGroup>
         {reachable.map((assignment) => (

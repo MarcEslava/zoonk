@@ -617,6 +617,46 @@ msgctxt "5vDqi-"
 msgid "Due {date}"
 msgstr "Due {date}"
 
+#: src/app/[lang]/(catalog)/my/habit-summary.tsx
+msgctxt "1y0AxF"
+msgid "Your habit"
+msgstr "Your habit"
+
+#: src/app/[lang]/(catalog)/my/habit-summary.tsx
+msgctxt "zWgbGg"
+msgid "Today"
+msgstr "Today"
+
+#: src/app/[lang]/(catalog)/my/habit-summary.tsx
+msgctxt "14bSre"
+msgid "{done, number} of {goal, number} min"
+msgstr "{done, number} of {goal, number} min"
+
+#: src/app/[lang]/(catalog)/my/habit-summary.tsx
+msgctxt "PtxhIN"
+msgid "This week"
+msgstr "This week"
+
+#: src/app/[lang]/(catalog)/my/habit-summary.tsx
+msgctxt "uytQ-l"
+msgid "{done, number} of {goal, plural, one {# day} other {# days}}"
+msgstr "{done, number} of {goal, plural, one {# day} other {# days}}"
+
+#: src/app/[lang]/(catalog)/my/habit-summary.tsx
+msgctxt "xLCZAR"
+msgid "Streak"
+msgstr "Streak"
+
+#: src/app/[lang]/(catalog)/my/habit-summary.tsx
+msgctxt "WCkIa-"
+msgid "{count, plural, one {# week} other {# weeks}}"
+msgstr "{count, plural, one {# week} other {# weeks}}"
+
+#: src/app/[lang]/(catalog)/my/habit-summary.tsx
+msgctxt "nfYh0Q"
+msgid "Weekends never count. Only you can see your habit; your organization only sees whether you complete the assigned training."
+msgstr "Weekends never count. Only you can see your habit; your organization only sees whether you complete the assigned training."
+
 #: src/app/[lang]/(catalog)/my/page.tsx
 msgctxt "riE3I5"
 msgid "View all the courses you started on Zoonk. Continue where you left off and track your progress across interactive lessons."

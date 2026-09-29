@@ -70,6 +70,34 @@ test.describe("Organization Learner", () => {
     await context.close();
   });
 
+  test("a learner sees their own weekly habit and who can see it", async ({ browser }) => {
+    const { learner } = await assignedCourseFixture();
+
+    // The E2E server has no location header, so the learner-local day is UTC.
+    const today = new Date(`${new Date().toISOString().slice(0, 10)}T00:00:00.000Z`);
+
+    await prisma.dailyProgress.create({
+      data: {
+        date: today,
+        dayOfWeek: today.getUTCDay(),
+        timeSpentSeconds: 120,
+        userId: learner.id,
+      },
+    });
+
+    const context = await browser.newContext({ storageState: learner.storageState });
+    const page = await context.newPage();
+
+    await page.goto("/my");
+
+    const habit = page.getByRole("region", { name: /your habit/iu });
+
+    await expect(habit.getByText(/2 of 3 min/iu)).toBeVisible();
+    await expect(habit.getByText(/only you can see your habit/iu)).toBeVisible();
+
+    await context.close();
+  });
+
   test("someone outside the organization cannot open its course", async ({ browser }) => {
     const { chapter, course, organization } = await assignedCourseFixture();
     const outsider = await createE2EUser(getBaseURL());
